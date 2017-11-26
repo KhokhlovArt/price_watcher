@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainColor_2"
+    tools:context="com.example.khokhlovart.price_watcher.MainActivity">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/white"
+            android:id="@+id/toolbar_main"
+            app:navigationIcon="@drawable/logo"
+            >
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_lbl"
+            android:textSize="24dp"
+            android:layout_margin="16dp"
+            android:textColor="@color/black"
+            android:id="@+id/textView"
+            />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/items_recycler_view"
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

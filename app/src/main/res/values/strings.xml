@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Price Watcher</string>
+    <string name="add_btn_hint">Добавьте ссылку на товар</string>
+    <string name="acc_btn_hint">Аккаунт</string>
+    <string name="delete">Удалить</string>
+    <string name="main_lbl">Ваши цены</string>
+    <string name="login_pass_hint">Пароль</string>
+    <string name="email">Email</string>
+    <string name="login_btn_enter">Вход</string>
+    <string name="login_btn_back">Назад</string>
+    <string name="login_btn_exit">Выйти</string>
+</resources>

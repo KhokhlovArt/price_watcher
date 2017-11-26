@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_add"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="@string/add_btn_hint"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/menu_login"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        android:title="@string/acc_btn_hint"
+        app:showAsAction="always"
+        />
+</menu>
