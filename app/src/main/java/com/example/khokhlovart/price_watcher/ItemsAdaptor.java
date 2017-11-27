@@ -36,6 +36,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
 
     public void setItems(List<Item> listItms){
         this.itemList = listItms;
+        this.itemList.add(0, new Item("-", "-", "-", "-", false, 0)); // Костыль что бы вставить шапку таблицы
         notifyDataSetChanged();
     }
 

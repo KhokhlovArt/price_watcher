@@ -1,5 +1,7 @@
 package com.example.khokhlovart.price_watcher;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**
@@ -15,6 +17,7 @@ public class Item {
     public String description;
     public String link;
     public String date;
+    @SerializedName("inStock")
     public boolean inStock;
     public double price;
 
