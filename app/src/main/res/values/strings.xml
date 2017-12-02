@@ -9,4 +9,5 @@
     <string name="login_btn_enter">Вход</string>
     <string name="login_btn_back">Назад</string>
     <string name="login_btn_exit">Выйти</string>
+    <string name="notification_head">Изменение цены!</string>
 </resources>

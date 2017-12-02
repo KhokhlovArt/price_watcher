@@ -21,6 +21,7 @@ import com.example.khokhlovart.price_watcher.Api.IApi;
 
 import java.io.IOException;
 import java.security.AccessControlContext;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,10 +35,15 @@ public class MainActivity extends AppCompatActivity {
     private IApi api;
     private static Toolbar mActionBarToolbar;
     private ActionMode actionMode;
+    private List<Integer> idItemsToDelete = new ArrayList<>();
+
     public static final int LOADER_ITEMS = 0;
     public static final int LOADER_AUTH = 1;
-
+    public static final int LOADER_DELETE = 2;
+    public static final int LOADER_GET_GSM_TOKEN = 3;
+    public static final String SENDER_ID = "121555725101";
 private static AuthRes authRes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +94,8 @@ private static AuthRes authRes;
                 refreshLayout.setRefreshing(false);
             }
         });
+
+        startService(new Intent(this, MyGcmListenerService.class));
     }
 
     @Override
@@ -169,6 +177,9 @@ private static AuthRes authRes;
 
     private void deleteSelectedItems() {
         for (int i = adaptor.getSelectedItems().size() - 1; i >= 0; i--) {
+            deleteItem(adaptor.getItemByPosition(adaptor.getSelectedItems().get(i)).id);
+        }
+        for (int i = adaptor.getSelectedItems().size() - 1; i >= 0; i--) {
             adaptor.remove(adaptor.getSelectedItems().get(i));
         }
     }
@@ -182,47 +193,6 @@ private static AuthRes authRes;
     /********************************************************************************************************************
      ********************************  Loader-ы  ************************************************************************
      ********************************************************************************************************************/
-    private void Auth() {
-        getSupportLoaderManager().restartLoader(LOADER_AUTH, null, new LoaderManager.LoaderCallbacks<AuthRes>() {
-            @Override
-            public Loader<AuthRes> onCreateLoader(int id, Bundle args) {
-
-                return new AsyncTaskLoader<AuthRes>(getApplicationContext()) {
-                    @Override
-                    public AuthRes loadInBackground() {
-                        try {
-                            HashMap mp = new HashMap();
-                            mp.put("email", "Khokhlovart@gmail.com");
-                            mp.put("password", "230988");
-                            AuthRes res = (AuthRes) api.auth(mp).execute().body();
-//                            AuthRes res = api.auth("Khokhlovart@gmail.com", "230988").execute().body();
-                            return res;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            return null;
-                        }
-                    }
-                };
-            }
-
-            @Override
-            public void onLoadFinished(Loader<AuthRes> loader, AuthRes data) {
-                if (data != null) {
-                    MainActivity.authRes = data;
-                    ((App) getApplicationContext()).setAuthToken(data.token);
-                }else {
-                    Log.d("KhokhlovLog", "Invalid credentials! :-(");
-                }
-
-            }
-
-            @Override
-            public void onLoaderReset(Loader<AuthRes> loader) {
-
-            }
-        }).forceLoad();
-    }
-    //********************************************************************************************************************
     private void loadItems() {
         getSupportLoaderManager().restartLoader(LOADER_ITEMS, null, new LoaderManager.LoaderCallbacks<List<Item>>() {
             @Override
@@ -259,4 +229,39 @@ private static AuthRes authRes;
             }
         }).forceLoad();
     }
+
+    //********************************************************************************************************************
+    private void deleteItem(int id){
+        idItemsToDelete.add(id);
+        getSupportLoaderManager().restartLoader(LOADER_DELETE, null, new LoaderManager.LoaderCallbacks() {
+            @Override
+            public Loader onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader(getApplicationContext()) {
+                    @Override
+                    public Boolean loadInBackground() {
+                        try {
+                            for (Integer itemId : idItemsToDelete)
+                            {
+                                HashMap mp = new HashMap();
+                                mp.put("userToken", ((App) getApplicationContext()).getAuthToken().toString());
+                                mp.put("priceId", itemId);
+                                AuthRes res = (AuthRes) api.delete(mp).execute().body();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return true;
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader loader, Object data) {}
+
+            @Override
+            public void onLoaderReset(Loader loader) {}
+
+        }).forceLoad();
+    }
+
 }

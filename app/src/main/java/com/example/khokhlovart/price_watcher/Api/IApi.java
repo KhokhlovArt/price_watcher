@@ -32,4 +32,7 @@ public interface IApi {
 
     @GET("rest/prices/{user_id}")
     Call<List<Item>> prices(@Path(value = "user_id", encoded = true) String userId);
+
+    @POST("rest/price/delete")
+    Call<Void> delete(@Body HashMap<String, Integer> id);
 }

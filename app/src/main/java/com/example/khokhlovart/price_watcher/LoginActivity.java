@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.iid.InstanceID;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -83,12 +86,27 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public AuthRes loadInBackground() {
                         try {
+
+                            InstanceID instanceID = InstanceID.getInstance(getContext());
+                            String token = null;
+                            try {
+                                token = instanceID.getToken(MainActivity.SENDER_ID,  GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (token == null)
+                            {
+                                return null;
+                            }
                             HashMap mp = new HashMap();
-                            mp.put("email", etLogin.getText().toString());
-                            mp.put("password", etPass.getText().toString());
+                            mp.put("email",     etLogin.getText().toString());
+                            mp.put("password",  etPass.getText().toString());
+                            mp.put("gcm_token", token);
+Log.e("!!!!--->", "token: " + token);
                             App apl = (App) getApplication();
                             AuthRes res = (AuthRes) (apl).getApi().auth(mp).execute().body();
                             apl.setPreferences(apl.KEY_AUTH_USER_EMAIL, etLogin.getText().toString());
+                            apl.setPreferences(apl.KEY_AUTH_USER_GCM_Token, token.toString());
                             return res;
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -106,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 }else {
                     apl.deletePreferences(apl.KEY_AUTH_USER_EMAIL);
+                    apl.deletePreferences(apl.KEY_AUTH_USER_GCM_Token);
                     etPass.setText("");
                     Toast.makeText(getApplicationContext(), "Invalid credentials!", Toast.LENGTH_SHORT).show();
                 }
@@ -117,4 +136,35 @@ public class LoginActivity extends AppCompatActivity {
             }
         }).forceLoad();
     }
+
+    //********************************************************************************************************************
+//    public void getGSMToken() {
+//        getSupportLoaderManager().restartLoader(MainActivity.LOADER_GET_GSM_TOKEN, null, new LoaderManager.LoaderCallbacks<Void>() {
+//            @Override
+//            public Loader<Void> onCreateLoader(int id, Bundle args) {
+//
+//                return new AsyncTaskLoader<Void>(getApplicationContext()) {
+//                    @Override
+//                    public Void loadInBackground() {
+//                        InstanceID instanceID = InstanceID.getInstance(MainActivity.this);
+//                        String token = null;
+//                        try {
+//                            token = instanceID.getToken(MainActivity.SENDER_ID,  GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        return null;
+//                    }
+//                };
+//            }
+//
+//            @Override
+//            public void onLoadFinished(Loader<Void> loader, Void data) {
+//                Log.e("!!!!--->", "onCreate: " + data);
+//            }
+//
+//            @Override
+//            public void onLoaderReset(Loader<Void> loader) {}
+//        }).forceLoad();
+//    }
 }

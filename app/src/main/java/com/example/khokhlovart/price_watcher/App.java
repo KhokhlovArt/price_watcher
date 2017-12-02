@@ -30,6 +30,7 @@ public class App extends Application {
     private static final String PREFERENCES_SESSION = "session";
     private static final String KEY_AUTH_TOKEN = "userToken";
     public static final String KEY_AUTH_USER_EMAIL = "userEmail";
+    public static final String KEY_AUTH_USER_GCM_Token = "userGCMToken";
     @Override
     public void onCreate() {
         super.onCreate();

@@ -103,6 +103,10 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         notifyDataSetChanged();
     }
 
+    public Item getItemByPosition(int pos) {
+        return itemList.get(pos);
+    }
+
     int getSelectedItemCount() {
         return selectedItems.size();
     }
