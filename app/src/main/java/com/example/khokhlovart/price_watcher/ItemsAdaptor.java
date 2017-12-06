@@ -36,7 +36,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
 
     public void setItems(List<Item> listItms){
         this.itemList = listItms;
-        this.itemList.add(0, new Item("-", "-", "-", "-", false, 0)); // Костыль что бы вставить шапку таблицы
+        this.itemList.add(0, new Item("-", "-", "-", false, 0)); // Костыль что бы вставить шапку таблицы
         notifyDataSetChanged();
     }
 
@@ -66,7 +66,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 holder.setRow();
                 holder.shop.setText(itemList.get(position).shop.domain);
                 holder.description.setText(itemList.get(position).description);
-                holder.date.setText(itemList.get(position).date);
+                holder.date.setText((itemList.get(position).createDate == null) ? "" : itemList.get(position).createDate.toString());
                 holder.isHave.setText(itemList.get(position).inStock ? "+" : "-");
                 holder.cost.setText(String.format("%.2f",itemList.get(position).price));
                 holder.tab_row.setBackgroundColor(position % 2 == 0 ? MainActivity.getRes().getColor(R.color.mainColor_1) : MainActivity.getRes().getColor(R.color.mainColor_2));

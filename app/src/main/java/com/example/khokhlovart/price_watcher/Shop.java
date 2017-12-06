@@ -1,9 +1,11 @@
 package com.example.khokhlovart.price_watcher;
 
+import java.io.Serializable;
+
 /**
  * Created by Dom on 26.11.2017.
  */
-public class Shop {
+public class Shop implements Serializable {
     public int id;
     public String domain;
     public boolean parserState ;

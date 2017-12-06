@@ -19,7 +19,6 @@
             android:id="@+id/toolbar_main"
             app:navigationIcon="@drawable/logo"
             >
-
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 

@@ -10,4 +10,10 @@
     <string name="login_btn_back">Назад</string>
     <string name="login_btn_exit">Выйти</string>
     <string name="notification_head">Изменение цены!</string>
+    <string name="tab_name_info">Инфо</string>
+    <string name="tab_name_graph">Изменение цен</string>
+    <array name="tabs_name">
+        <item>@string/tab_name_info</item>
+        <item>@string/tab_name_graph</item>
+    </array>
 </resources>

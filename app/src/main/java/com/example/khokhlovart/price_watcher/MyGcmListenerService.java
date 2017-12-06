@@ -23,10 +23,7 @@ public class MyGcmListenerService extends GcmListenerService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("!!!!--->", "From:onCreate");
     }
-
-
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
@@ -44,32 +41,33 @@ public class MyGcmListenerService extends GcmListenerService {
 
     @Override
     public void onMessageReceived(String from, Bundle data) {
-        Log.e("!!!!--->", "From: 11");
         if (from.equals(MainActivity.SENDER_ID)) {
             String message = data.getString("message");
-            Log.e("!!!!--->", "From: " + from);
-            Log.e("!!!!--->", "Message: " + message);
-
-
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.logo)
-                            .setContentTitle(getString(R.string.notification_head))
-                            .setContentText(" !!! " + message.toString())
-                            //.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000})
-                            .setAutoCancel(true);
-
-            Intent resultIntent = new Intent(this, MainActivity.class);
-
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-
-            stackBuilder.addParentStack(MainActivity.class);
-            stackBuilder.addNextIntent(resultIntent);
-            PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-            mBuilder.setContentIntent(resultPendingIntent);
-            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            mNotificationManager.notify(0, mBuilder.build());
-
+            String title   = data.getString("title");
+            sendNotification(title, message);
         }
+    }
+
+    void sendNotification(String titel, String text)
+    {
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.logo)
+                        .setContentTitle((titel == null) ? "Изменения" : titel)
+                        .setContentText((text == null) ? "Новые изменения" : text)
+                        //.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000})
+                        .setAutoCancel(true);
+
+        Intent resultIntent = new Intent(this, MainActivity.class);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(0, mBuilder.build());
     }
 }

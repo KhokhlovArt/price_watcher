@@ -8,8 +8,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:name="com.example.khokhlovart.permission.C2D_MESSAGE"
+
+    <permission
+        android:name="com.example.khokhlovart.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.example.khokhlovart.permission.C2D_MESSAGE" />
 
     <application
@@ -20,48 +23,56 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--<receiver-->
-            <!--android:name="com.google.android.gms.gcm.GcmReceiver"-->
-            <!--android:exported="true"-->
-            <!--android:permission="com.google.android.c2dm.permission.SEND" >-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.android.c2dm.intent.RECEIVE" />-->
-                <!--<category android:name="com.example.khokhlovart" />-->
-            <!--</intent-filter>-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.android.c2dm.intent.REGISTRATION" />-->
-                <!--<category android:name="com.example.khokhlovart" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver -->
+        <!-- android:name="com.google.android.gms.gcm.GcmReceiver" -->
+        <!-- android:exported="true" -->
+        <!-- android:permission="com.google.android.c2dm.permission.SEND" > -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.android.c2dm.intent.RECEIVE" /> -->
+        <!-- <category android:name="com.example.khokhlovart" /> -->
+        <!-- </intent-filter> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="com.google.android.c2dm.intent.REGISTRATION" /> -->
+        <!-- <category android:name="com.example.khokhlovart" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
                 <category android:name="com.google.android.gcm.demo" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name="com.example.khokhlovart.price_watcher.MyGcmListenerService"
+            android:name=".MyGcmListenerService"
             android:exported="false"
-            android:process=":remote" >
+            android:process=":remote">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.Toolbar">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".itemInfoActivity"
+            android:theme="@style/AppTheme.Toolbar" />
+        <activity android:name=".AddActivity"
+                  android:theme="@style/AppTheme.Toolbar" ></activity>
     </application>
 
 </manifest>

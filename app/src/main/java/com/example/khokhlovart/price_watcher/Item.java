@@ -2,13 +2,14 @@ package com.example.khokhlovart.price_watcher;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Dom on 25.11.2017.
  */
 
-public class Item {
+public class Item implements Serializable {
     public int id;
     public int userId;
     public Shop shop;
@@ -16,16 +17,20 @@ public class Item {
     //public String shop;
     public String description;
     public String link;
-    public String date;
+    @SerializedName("createDate")
+    public Date createDate;
+    @SerializedName("checkDate")
+    public Date checkDate;
+    @SerializedName("changeDate")
+    public String changeDate;
     @SerializedName("inStock")
     public boolean inStock;
     public double price;
 
-    public Item(String shop, String description, String link, String date, boolean inStock, double price) {
+    public Item(String shop, String description, String link, boolean inStock, double price) {
         //this.shop        = shop;
         this.description  = description;
         this.link         = link;
-        this.date         = date;
         this.inStock      = inStock;
         this.price        = price;
     }

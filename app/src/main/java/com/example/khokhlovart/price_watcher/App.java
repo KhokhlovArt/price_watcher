@@ -27,16 +27,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class App extends Application {
     private IApi api;
-    private static final String PREFERENCES_SESSION = "session";
-    private static final String KEY_AUTH_TOKEN = "userToken";
-    public static final String KEY_AUTH_USER_EMAIL = "userEmail";
-    public static final String KEY_AUTH_USER_GCM_Token = "userGCMToken";
+    private static final String PREFERENCES_SESSION     = "session";
+    private static final String KEY_AUTH_TOKEN          = "userToken";
+    public  static final String KEY_AUTH_USER_EMAIL     = "userEmail";
+    public  static final String KEY_AUTH_USER_GCM_Token = "userGCMToken";
     @Override
     public void onCreate() {
         super.onCreate();
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS+03:00")
                 .create();
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

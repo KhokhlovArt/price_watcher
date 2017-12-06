@@ -101,8 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                             HashMap mp = new HashMap();
                             mp.put("email",     etLogin.getText().toString());
                             mp.put("password",  etPass.getText().toString());
-                            mp.put("gcm_token", token);
-Log.e("!!!!--->", "token: " + token);
+                            mp.put("deviceId", token);
+
                             App apl = (App) getApplication();
                             AuthRes res = (AuthRes) (apl).getApi().auth(mp).execute().body();
                             apl.setPreferences(apl.KEY_AUTH_USER_EMAIL, etLogin.getText().toString());

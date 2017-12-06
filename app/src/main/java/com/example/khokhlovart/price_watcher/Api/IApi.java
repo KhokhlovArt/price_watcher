@@ -2,6 +2,7 @@ package com.example.khokhlovart.price_watcher.Api;
 
 import com.example.khokhlovart.price_watcher.AuthRes;
 import com.example.khokhlovart.price_watcher.Item;
+import com.example.khokhlovart.price_watcher.PriceHistoryItem;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,4 +36,7 @@ public interface IApi {
 
     @POST("rest/price/delete")
     Call<Void> delete(@Body HashMap<String, Integer> id);
+
+    @GET("getPriceHistory/{user_id}/{price_id}")
+    Call<List<PriceHistoryItem>> getPriceHistory(@Path(value = "user_id", encoded = true) String userId, @Path(value = "price_id", encoded = true) int price_id);
 }

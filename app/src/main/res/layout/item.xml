@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:stretchColumns="0,1,4,5"
+    android:stretchColumns="1,4,5"
     >
     <TableRow android:id="@+id/tab_row"
             android:paddingTop="10dp"
@@ -15,6 +15,7 @@
             tools:text="acsasdas"
             style="@style/item_in_table"
             android:id="@+id/shop"
+            android:visibility="gone"
             android:layout_marginLeft="10dp"
             />
         <TextView

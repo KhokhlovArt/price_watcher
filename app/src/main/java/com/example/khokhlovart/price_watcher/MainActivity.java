@@ -2,6 +2,7 @@ package com.example.khokhlovart.price_watcher;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import com.example.khokhlovart.price_watcher.Api.IApi;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.AccessControlContext;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,17 +33,19 @@ public class MainActivity extends AppCompatActivity {
     private static Resources res;
     private static AccessControlContext cntxt;
     private SwipeRefreshLayout refreshLayout;
-    ItemsAdaptor adaptor;
+    public ItemsAdaptor adaptor;
     private IApi api;
     private static Toolbar mActionBarToolbar;
     private ActionMode actionMode;
     private List<Integer> idItemsToDelete = new ArrayList<>();
 
-    public static final int LOADER_ITEMS = 0;
-    public static final int LOADER_AUTH = 1;
-    public static final int LOADER_DELETE = 2;
-    public static final int LOADER_GET_GSM_TOKEN = 3;
+    public static final int LOADER_ITEMS         = 0;
+    public static final int LOADER_AUTH          = 1;
+    public static final int LOADER_DELETE        = 2;
+    public static final int LOADER_PRICE_HISTORY = 7;
+
     public static final String SENDER_ID = "121555725101";
+    public static final String CHEK_ITEM = "chek_item";
 private static AuthRes authRes;
 
 
@@ -63,6 +67,16 @@ private static AuthRes authRes;
             public void onItemClick(Item item, int position) {
                 if (isInActionMode()) {
                     adaptor.toggleSelection(position);
+                }
+                else
+                {
+                    if (adaptor.getItemViewType(position) != adaptor.HEAD_HOLDER_TYPE) {
+                        Intent intent = new Intent(getBaseContext(), itemInfoActivity.class);
+                        Bundle b = new Bundle();
+                        b.putSerializable(CHEK_ITEM, (Serializable) adaptor.getItemByPosition(position));
+                        intent.putExtras(b);
+                        startActivity(intent);
+                    }
                 }
             }
 
@@ -119,10 +133,16 @@ private static AuthRes authRes;
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
-            case R.id.menu_login:
-                Intent intent = new Intent(getBaseContext() , LoginActivity.class);
+            case R.id.menu_login: {
+                Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(intent);
                 return true;
+                }
+            case R.id.menu_add: {
+                Intent intent = new Intent(getBaseContext(), AddActivity.class);
+                startActivity(intent);
+                return true;
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
