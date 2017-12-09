@@ -1,8 +1,7 @@
-package com.example.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher;
 
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -13,12 +12,11 @@ import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.khokhlovart.price_watcher.Api.IApi;
+import com.khokhlov.khokhlovart.price_watcher.Api.IApi;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -52,8 +50,8 @@ private static AuthRes authRes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MyGcmListenerService.notifivation_count = 0;
         setContentView(R.layout.activity_main);
- //getSupportActionBar().hide();
         mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mActionBarToolbar);
         setRes(getResources());
@@ -65,6 +63,7 @@ private static AuthRes authRes;
         adaptor.setListener(new ItemsAdapterListener() {
             @Override
             public void onItemClick(Item item, int position) {
+
                 if (isInActionMode()) {
                     adaptor.toggleSelection(position);
                 }
@@ -85,7 +84,6 @@ private static AuthRes authRes;
                 if (isInActionMode()) {
                     return;
                 }
-                //MainActivity.getToolbar().setVisibility(View.GONE);
                 actionMode = ((AppCompatActivity) MainActivity.this).startSupportActionMode(actionModeCallback);
                 adaptor.toggleSelection(position);
                 actionMode.setTitle(getString(R.string.delete));
@@ -98,7 +96,7 @@ private static AuthRes authRes;
 
         itemsRecyclerView.setAdapter(adaptor);
 
-        //Auth();
+//        Auth();
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -110,11 +108,16 @@ private static AuthRes authRes;
         });
 
         startService(new Intent(this, MyGcmListenerService.class));
+
+//        App apl = (App) getApplication();
+//        String notif_options = apl.getPreferences(apl.OPTIONS_NOTIFICATION);
+//        startService(new Intent(this, MyGcmListenerService.class).putExtra("is_need_notification", notif_options.equals("true")));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         if(((App)getApplication()).isLoggedIn()){
             loadItems();
         }else{

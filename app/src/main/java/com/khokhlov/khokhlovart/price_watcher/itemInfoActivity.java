@@ -1,10 +1,9 @@
-package com.example.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 public class itemInfoActivity extends AppCompatActivity {
     private TabLayout tab;

@@ -27,4 +27,14 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
 
+
+    - <style name="BrandedSwitch" parent="AppTheme">
+    <item name="colorControlNormal">#888888</item>
+    - <!-- Цвет моргания
+  -->
+    <item name="colorControlHighlight">@color/colorAccent</item>
+    - <!-- Цвет активнйо кнопки
+  -->
+    <item name="colorControlActivated">@color/colorAccent</item>
+</style>
 </resources>

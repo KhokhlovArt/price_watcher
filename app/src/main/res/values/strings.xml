@@ -12,6 +12,13 @@
     <string name="notification_head">Изменение цены!</string>
     <string name="tab_name_info">Инфо</string>
     <string name="tab_name_graph">Изменение цен</string>
+    <string name="inf_tbl_shop_lbl">Магазин</string>
+    <string name="inf_tbl_discr_lbl">Описание</string>
+    <string name="inf_tbl_link_lbl">Ссылка</string>
+    <string name="inf_tbl_datecr_lbl">Создана</string>
+    <string name="inf_tbl_instock_lbl">Наличие</string>
+    <string name="inf_tbl_price_lbl">Цена</string>
+    <string name="login_opt_notif">Уведомления</string>
     <array name="tabs_name">
         <item>@string/tab_name_info</item>
         <item>@string/tab_name_graph</item>

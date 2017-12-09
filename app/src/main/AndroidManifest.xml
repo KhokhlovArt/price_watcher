@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.khokhlovart.price_watcher">
+    package="com.khokhlov.khokhlovart.price_watcher">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <permission
-        android:name="com.example.khokhlovart.permission.C2D_MESSAGE"
+        android:name="com.khokhlov.khokhlovart.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.example.khokhlovart.permission.C2D_MESSAGE" />
 
     <application
-        android:name=".App"
+        android:name="com.khokhlov.khokhlovart.price_watcher.App"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:process=":remote"
         android:theme="@style/AppTheme">
 
         <!-- <receiver -->
@@ -49,7 +49,7 @@
         </receiver>
 
         <service
-            android:name=".MyGcmListenerService"
+            android:name="com.khokhlov.khokhlovart.price_watcher.MyGcmListenerService"
             android:exported="false"
             android:process=":remote">
             <intent-filter>
@@ -58,7 +58,7 @@
         </service>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.khokhlov.khokhlovart.price_watcher.MainActivity"
             android:theme="@style/AppTheme.Toolbar">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -67,11 +67,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+        <activity android:name="com.khokhlov.khokhlovart.price_watcher.LoginActivity" />
         <activity
-            android:name=".itemInfoActivity"
+            android:name="com.khokhlov.khokhlovart.price_watcher.itemInfoActivity"
             android:theme="@style/AppTheme.Toolbar" />
-        <activity android:name=".AddActivity"
+        <activity android:name="com.khokhlov.khokhlovart.price_watcher.AddActivity"
                   android:theme="@style/AppTheme.Toolbar" ></activity>
     </application>
 

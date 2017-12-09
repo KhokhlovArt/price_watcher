@@ -1,4 +1,4 @@
-package com.example.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher;
 
 import org.junit.Test;
 

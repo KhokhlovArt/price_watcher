@@ -1,22 +1,16 @@
-package com.example.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher;
 
 import android.app.Application;
 import android.text.TextUtils;
 
-import com.example.khokhlovart.price_watcher.Api.IApi;
-import com.google.android.gms.common.api.Api;
+import com.khokhlov.khokhlovart.price_watcher.Api.IApi;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -31,6 +25,7 @@ public class App extends Application {
     private static final String KEY_AUTH_TOKEN          = "userToken";
     public  static final String KEY_AUTH_USER_EMAIL     = "userEmail";
     public  static final String KEY_AUTH_USER_GCM_Token = "userGCMToken";
+    public  static final String OPTIONS_NOTIFICATION    = "notification";
     @Override
     public void onCreate() {
         super.onCreate();

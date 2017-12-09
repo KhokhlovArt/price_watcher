@@ -1,6 +1,5 @@
-package com.example.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher;
 
-import android.content.Intent;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -9,7 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -24,6 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnEnter;
     private Button btnExit;
     private Button btnBack;
+    private TableRow rowWithEnter;
+    private TableRow rowWithExit;
+    private TableRow rowWithNotificationOpt;
+    private Switch notificationSwitch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +39,13 @@ public class LoginActivity extends AppCompatActivity {
         btnEnter = (Button)   findViewById(R.id.btn_enter);
         btnExit  = (Button)   findViewById(R.id.btn_logout);
         btnBack  = (Button)   findViewById(R.id.btn_back);
+
+        rowWithEnter           = (TableRow) findViewById(R.id.row_with_entr_btn);
+        rowWithExit            = (TableRow) findViewById(R.id.row_with_exit_btn);
+        rowWithNotificationOpt = (TableRow) findViewById(R.id.row_with_notification_opt);
+
+        notificationSwitch = (Switch)  findViewById(R.id.switch_notifications);
+
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +72,11 @@ public class LoginActivity extends AppCompatActivity {
             btnEnter.setVisibility(View.GONE);
             btnExit.setVisibility(View.VISIBLE);
             btnBack.setVisibility(View.VISIBLE);
+
+            rowWithEnter.setVisibility(View.GONE);
+            rowWithExit.setVisibility(View.VISIBLE);
+            rowWithNotificationOpt.setVisibility(View.VISIBLE);
+
             etLogin.setEnabled(false);
             etLogin.setText(apl.getPreferences(apl.KEY_AUTH_USER_EMAIL).toString());
             etPass.setEnabled(false);
@@ -67,13 +85,37 @@ public class LoginActivity extends AppCompatActivity {
             btnEnter.setVisibility(View.VISIBLE);
             btnExit.setVisibility(View.GONE);
             btnBack.setVisibility(View.GONE);
+
+            rowWithEnter.setVisibility(View.VISIBLE);
+            rowWithExit.setVisibility(View.GONE);
+            rowWithNotificationOpt.setVisibility(View.GONE);
+
             etLogin.setEnabled(true);
             etLogin.setText("");
             etPass.setEnabled(true);
             etPass.setText("");
         }
+        String notif_options = apl.getPreferences(apl.OPTIONS_NOTIFICATION);
+        if (!notif_options.equals("true") && !notif_options.equals("false"))
+        {
+            apl.setPreferences(apl.OPTIONS_NOTIFICATION, "true");
+        }
+        notificationSwitch.setChecked(notif_options.equals("true"));
+        notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                setNotificationOptions(b);
+            }
+        });
     }
 
+    private void setNotificationOptions(boolean b)
+    {
+        App apl = (App) getApplication();
+        apl.setPreferences(apl.OPTIONS_NOTIFICATION, b ? "true" : "false");
+        //Перезапускаем Сервис
+        //startService(new Intent(this, MyGcmListenerService.class).putExtra("is_need_notification", b));
+    }
     /********************************************************************************************************************
      ********************************  Loader-ы  ************************************************************************
      ********************************************************************************************************************/

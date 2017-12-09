@@ -1,4 +1,4 @@
-package com.example.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher;
 
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;

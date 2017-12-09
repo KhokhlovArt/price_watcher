@@ -1,8 +1,8 @@
-package com.example.khokhlovart.price_watcher.Api;
+package com.khokhlov.khokhlovart.price_watcher.Api;
 
-import com.example.khokhlovart.price_watcher.AuthRes;
-import com.example.khokhlovart.price_watcher.Item;
-import com.example.khokhlovart.price_watcher.PriceHistoryItem;
+import com.khokhlov.khokhlovart.price_watcher.AuthRes;
+import com.khokhlov.khokhlovart.price_watcher.Item;
+import com.khokhlov.khokhlovart.price_watcher.PriceHistoryItem;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +13,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 /**
  * Created by Dom on 26.11.2017.
