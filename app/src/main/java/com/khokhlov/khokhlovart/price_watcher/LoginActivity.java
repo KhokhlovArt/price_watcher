@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etLogin;
     private EditText etPass;
     private Button btnEnter;
+    private Button btnSignup;
     private Button btnExit;
     private Button btnBack;
     private TableRow rowWithEnter;
@@ -34,11 +35,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        etLogin  = (EditText) findViewById(R.id.login);
-        etPass   = (EditText) findViewById(R.id.pass);
-        btnEnter = (Button)   findViewById(R.id.btn_enter);
-        btnExit  = (Button)   findViewById(R.id.btn_logout);
-        btnBack  = (Button)   findViewById(R.id.btn_back);
+        etLogin   = (EditText) findViewById(R.id.login);
+        etPass    = (EditText) findViewById(R.id.pass);
+        btnEnter  = (Button)   findViewById(R.id.btn_enter);
+        btnSignup = (Button)   findViewById(R.id.btn_signup);
+        btnExit   = (Button)   findViewById(R.id.btn_logout);
+        btnBack   = (Button)   findViewById(R.id.btn_back);
 
         rowWithEnter           = (TableRow) findViewById(R.id.row_with_entr_btn);
         rowWithExit            = (TableRow) findViewById(R.id.row_with_exit_btn);
@@ -50,6 +52,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Auth();
+            }
+        });
+        btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogFragment dialog = new DialogFragment();
+                dialog.show(getSupportFragmentManager(), "MyDialogFragmentTag");
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         App apl = (App) getApplication();
         if(apl.isLoggedIn()){
             btnEnter.setVisibility(View.GONE);
+            btnSignup.setVisibility(View.GONE);
             btnExit.setVisibility(View.VISIBLE);
             btnBack.setVisibility(View.VISIBLE);
 
@@ -83,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             etPass.setText("********");
         }else{
             btnEnter.setVisibility(View.VISIBLE);
+            btnSignup.setVisibility(View.VISIBLE);
             btnExit.setVisibility(View.GONE);
             btnBack.setVisibility(View.GONE);
 

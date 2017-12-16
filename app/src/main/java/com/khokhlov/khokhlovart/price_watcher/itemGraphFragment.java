@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,9 @@ import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -61,12 +65,14 @@ public class itemGraphFragment extends Fragment {
         graph.getGridLabelRenderer().setHorizontalLabelsColor(R.color.black);
         graph.getGridLabelRenderer().setHorizontalAxisTitleColor(R.color.black);
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
-
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
+        graph.getGridLabelRenderer().setHumanRounding(false);
         //graph.getViewport().setScalable(true);
         //graph.getViewport().setScrollable(true);
         //graph.getViewport().setScalableY(true);
         //graph.getViewport().setScrollableY(true);
+
 
         DataPoint[] tmp  = new DataPoint[priceHistory.size()];
         int i = 0;
@@ -81,7 +87,6 @@ public class itemGraphFragment extends Fragment {
             }
             tmp[i] = new DataPoint(date, val);
             i++;*/
-
             double val = historyItem.priceValue == null ? 0 : historyItem.priceValue;
             tmp[i] = new DataPoint(i, val);
             i++;

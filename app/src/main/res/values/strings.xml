@@ -19,8 +19,12 @@
     <string name="inf_tbl_instock_lbl">Наличие</string>
     <string name="inf_tbl_price_lbl">Цена</string>
     <string name="login_opt_notif">Уведомления</string>
+    <string name="registration">Регистрация</string>
     <array name="tabs_name">
         <item>@string/tab_name_info</item>
         <item>@string/tab_name_graph</item>
     </array>
+
+    <string name="sign_tmp_header">Регистрация</string>
+    <string name="sign_tmp_text">К сожалению, сейчас зарегистрироваться можно только на сайте</string>
 </resources>

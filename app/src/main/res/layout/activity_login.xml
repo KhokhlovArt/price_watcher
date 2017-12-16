@@ -57,7 +57,14 @@
                 android:id="@+id/btn_enter"
                 android:layout_margin="16dp"
                 />
-            <TextView />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:text="@string/registration"
+                android:textColor="@color/white"
+                android:id="@+id/btn_signup"
+                android:layout_margin="16dp"/>
         </TableRow>
         <TableRow android:id="@+id/row_with_exit_btn">
 
