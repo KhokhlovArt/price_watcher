@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int LOADER_DELETE        = 2;
     public static final int LOADER_PRICE_HISTORY = 7;
 
-    public static final String SENDER_ID = "121555725101";
+    public static final String SENDER_ID = "829446502336";
     public static final String CHEK_ITEM = "chek_item";
 private static AuthRes authRes;
 
