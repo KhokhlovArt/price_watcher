@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int LOADER_ITEMS         = 0;
     public static final int LOADER_AUTH          = 1;
     public static final int LOADER_DELETE        = 2;
+    public static final int LOADER_ADD           = 3;
     public static final int LOADER_PRICE_HISTORY = 7;
 
     public static final String SENDER_ID = "829446502336";

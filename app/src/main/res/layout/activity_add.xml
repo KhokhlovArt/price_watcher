@@ -5,18 +5,8 @@
     android:id="@+id/activity_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainColor_1"
     tools:context="com.khokhlov.khokhlovart.price_watcher.AddActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="15dp"
-        android:text="Извините, но сейчас добавление возможно только через сайт"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        android:gravity="center"
-        android:background="@color/mainColor_1"
-        />
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -33,15 +23,53 @@
 
     </android.support.design.widget.AppBarLayout>
 
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:hint="@string/add_link_hint"
+        android:textColorHint="@color/colorPrimaryDark"
+        android:textColor="@color/black"
+        android:textSize="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:id="@+id/add_link"
+        android:layout_margin="16dp"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/add_btn_add"
+        android:background="@color/colorAccent"
+        android:id="@+id/btn_add"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/add_link"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="Перейти на сайт"
+        android:text="@string/login_btn_back"
         android:padding="16dp"
+        android:background="@color/colorAccent"
         android:layout_margin="16dp"
-        android:id="@+id/button_add" />
+        android:id="@+id/btn_back" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_from_site"
+        android:padding="16dp"
+        android:background="@color/colorAccent"
+        android:layout_marginLeft="16dp"
+        android:layout_alignBottom="@+id/btn_back"
+        android:id="@+id/btn_to_site"/>
 
 </RelativeLayout>

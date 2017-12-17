@@ -27,4 +27,8 @@
 
     <string name="sign_tmp_header">Регистрация</string>
     <string name="sign_tmp_text">К сожалению, сейчас зарегистрироваться можно только на сайте</string>
+    <string name="link_added">Ссылка добавлена!</string>
+    <string name="add_link_hint">Добавьте ссылку</string>
+    <string name="add_btn_add">Добавить</string>
+    <string name="add_from_site">Добавить с сайта</string>
 </resources>
