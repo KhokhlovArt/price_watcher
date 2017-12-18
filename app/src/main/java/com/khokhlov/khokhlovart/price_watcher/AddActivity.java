@@ -97,7 +97,7 @@ public class AddActivity extends AppCompatActivity {
                             }
                             case 3: {
                                 //3   - пользователь привязан к уже существующему товару
-                                Toast.makeText(getBaseContext(), R.string.add_res_2 , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), R.string.add_res_1 , Toast.LENGTH_SHORT).show();
                                 break;
                             }
                             case -1: {
