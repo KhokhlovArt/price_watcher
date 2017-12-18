@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Price Watcher</string>
+    <string name="add_btn_hint">Добавьте ссылку на товар</string>
+    <string name="acc_btn_hint">Аккаунт</string>
+    <string name="delete">Удалить</string>
+    <string name="main_lbl">Ваши цены</string>
+    <string name="login_pass_hint">Пароль</string>
+    <string name="email">Email</string>
+    <string name="login_btn_enter">Вход</string>
+    <string name="login_btn_back">Назад</string>
+    <string name="login_btn_exit">Выйти</string>
+    <string name="notification_head">Изменение цены!</string>
+    <string name="tab_name_info">Инфо</string>
+    <string name="tab_name_graph">Изменение цен</string>
+    <string name="inf_tbl_shop_lbl">Магазин</string>
+    <string name="inf_tbl_discr_lbl">Описание</string>
+    <string name="inf_tbl_link_lbl">Ссылка</string>
+    <string name="inf_tbl_datecr_lbl">Создана</string>
+    <string name="inf_tbl_instock_lbl">Наличие</string>
+    <string name="inf_tbl_price_lbl">Цена</string>
+    <string name="login_opt_notif">Уведомления</string>
+    <string name="registration">Регистрация</string>
+    <array name="tabs_name">
+        <item>@string/tab_name_info</item>
+        <item>@string/tab_name_graph</item>
+    </array>
+
+    <string name="sign_tmp_header">Регистрация</string>
+    <string name="sign_tmp_text">К сожалению, сейчас зарегистрироваться можно только на сайте</string>
+    <string name="link_added">Ссылка добавлена!</string>
+    <string name="add_link_hint">Добавьте ссылку</string>
+    <string name="add_btn_add">Добавить</string>
+    <string name="add_from_site">Добавить с сайта</string>
+</resources>
