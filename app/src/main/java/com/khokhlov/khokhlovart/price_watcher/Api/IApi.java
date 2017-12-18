@@ -1,5 +1,6 @@
 package com.khokhlov.khokhlovart.price_watcher.Api;
 
+import com.khokhlov.khokhlovart.price_watcher.AddResult;
 import com.khokhlov.khokhlovart.price_watcher.AuthRes;
 import com.khokhlov.khokhlovart.price_watcher.Item;
 import com.khokhlov.khokhlovart.price_watcher.PriceHistoryItem;
@@ -36,7 +37,7 @@ public interface IApi {
     Call<Void> delete(@Body HashMap<String, Integer> id);
 
     @POST("rest/price/add")
-    Call<Void> add_link(@Body HashMap<String, Integer> id);
+    Call<AddResult> add_link(@Body HashMap<String, Integer> id);
 
     @GET("getPriceHistory/{user_id}/{price_id}")
     Call<List<PriceHistoryItem>> getPriceHistory(@Path(value = "user_id", encoded = true) String userId, @Path(value = "price_id", encoded = true) int price_id);

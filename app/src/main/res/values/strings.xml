@@ -15,7 +15,7 @@
     <string name="inf_tbl_shop_lbl">store</string>
     <string name="inf_tbl_discr_lbl">Description</string>
     <string name="inf_tbl_link_lbl">Link</string>
-    <string name="inf_tbl_datecr_lbl">Created</string>
+    <string name="inf_tbl_datecr_lbl">Changed</string>
     <string name="inf_tbl_instock_lbl">Availability</string>
     <string name="inf_tbl_price_lbl">Price</string>
     <string name="login_opt_notif">Notifications</string>
@@ -31,4 +31,11 @@
     <string name="add_link_hint">Add link</string>
     <string name="add_btn_add">Add</string>
     <string name="add_from_site">Add from site</string>
+    <string name="yes">Yes</string>
+    <string name="no">no</string>
+    <string name="add_res_1">Product added!</string>
+    <string name="add_res_2">Added store inquiry with this product</string>
+    <string name="add_res_3">user is attached to an existing product</string>
+    <string name="add_res_m1">You already have this product</string>
+    <string name="add_res_default_err">Ops! There was an error</string>
 </resources>

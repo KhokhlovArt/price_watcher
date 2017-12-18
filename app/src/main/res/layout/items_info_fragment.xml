@@ -29,7 +29,7 @@
             android:fontFamily="sans-serif"
             android:textStyle="normal"
             android:textColor="#000000"
-            android:text="plaaeaes"
+            tools:text="plaaeaes"
             android:layout_span="2"
             android:id="@+id/shop_lbl_val"
             android:gravity="center_horizontal|center_vertical"
@@ -60,7 +60,7 @@
             android:textStyle="normal"
             android:textColor="#000000"
             android:layout_span="2"
-            android:text="2-комнатная квартира на продажу г.Москва, поселение Внуковское, ул. Самуила Маршака, дом 6, Москва Москва"
+            tools:text="2-комнатная квартира на продажу г.Москва, поселение Внуковское, ул. Самуила Маршака, дом 6, Москва Москва"
             android:id="@+id/discription_lbl_val"
             android:gravity="center_horizontal|center_vertical"
             />
@@ -89,7 +89,7 @@
             android:textStyle="normal"
             android:textColor="#0000FF"
             android:layout_span="2"
-            android:text="Перейти"
+            tools:text="Перейти"
             android:id="@+id/link_lbl_val"
             android:gravity="center_horizontal|center_vertical"
             />
@@ -118,7 +118,7 @@
             android:textStyle="normal"
             android:textColor="#000000"
             android:layout_span="2"
-            android:text="2017.11.13"
+            tools:text="2017.11.13"
             android:id="@+id/date_lbl_val"
             android:gravity="center_horizontal|center_vertical"
             />
@@ -147,7 +147,7 @@
             android:textStyle="normal"
             android:textColor="#00FF00"
             android:layout_span="2"
-            android:text="Да"
+            tools:text="Да"
             android:id="@+id/isHave_lbl_val"
             android:gravity="center_horizontal|center_vertical"
             />
@@ -176,7 +176,7 @@
             android:textStyle="normal"
             android:textColor="#000000"
             android:layout_span="2"
-            android:text="777"
+            tools:text="777"
             android:id="@+id/price_lbl_val"
             android:gravity="center_horizontal|center_vertical"
             />

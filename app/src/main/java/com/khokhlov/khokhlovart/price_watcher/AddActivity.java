@@ -57,31 +57,69 @@ public class AddActivity extends AppCompatActivity {
     //********************************************************************************************************************
     private void add_link(String add_link){
         link = add_link;
-        getSupportLoaderManager().restartLoader(MainActivity.LOADER_ADD, null, new LoaderManager.LoaderCallbacks() {
+        getSupportLoaderManager().restartLoader(MainActivity.LOADER_ADD, null, new LoaderManager.LoaderCallbacks<AddResult>() {
             @Override
-            public Loader onCreateLoader(int id, Bundle args) {
-                return new AsyncTaskLoader(getApplicationContext()) {
+            public Loader<AddResult> onCreateLoader(int id, Bundle args) {
+                return new AsyncTaskLoader<AddResult>(getApplicationContext()) {
                     @Override
-                    public Boolean loadInBackground() {
+                    public AddResult loadInBackground() {
                         try {
-                                App apl = (App) getApplication();
-                                HashMap mp = new HashMap();
-                                mp.put("userToken", ((App) getApplicationContext()).getAuthToken().toString());
-                                mp.put("link", link);
-                                AuthRes res = (AuthRes) (apl).getApi().add_link(mp).execute().body();
+                            App apl = (App) getApplication();
+                            HashMap mp = new HashMap();
+                            mp.put("userToken", ((App) getApplicationContext()).getAuthToken().toString());
+                            mp.put("link", link);
+                            AddResult res = (AddResult) (apl).getApi().add_link(mp).execute().body();
+                            return res;
 
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        return true;
+                        return null;
                     }
                 };
             }
 
             @Override
-            public void onLoadFinished(Loader loader, Object data) {
-                Log.e("LOGTEST:", data.toString());
-                Toast.makeText(getBaseContext(), R.string.link_added, Toast.LENGTH_SHORT).show();
+            public void onLoadFinished(Loader<AddResult> loader, AddResult data) {
+                if (data != null) {
+                    if (data.status.equals("OK"))
+                    {
+                        switch (data.code) {
+                            case 1: {
+                                //1   - товар добавлен как новый
+                                Toast.makeText(getBaseContext(), R.string.add_res_1 , Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                            case 2: {
+                                //2   - добавлен запрос магазина с этим товаром
+                                Toast.makeText(getBaseContext(), R.string.add_res_2 , Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                            case 3: {
+                                //3   - пользователь привязан к уже существующему товару
+                                Toast.makeText(getBaseContext(), R.string.add_res_2 , Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                            case -1: {
+                                //-1   - ошибка. У пользователя уже есть ссылка на такой товар
+                                Toast.makeText(getBaseContext(), R.string.add_res_m1 , Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                            default: {
+                                Toast.makeText(getBaseContext(), R.string.add_res_default_err, Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(getBaseContext(), "Error: " + data.message , Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                else
+                {
+                }
             }
 
             @Override
@@ -89,4 +127,38 @@ public class AddActivity extends AppCompatActivity {
 
         }).forceLoad();
     }
+//    private void add_link(String add_link){
+//        link = add_link;
+//        getSupportLoaderManager().restartLoader(MainActivity.LOADER_ADD, null, new LoaderManager.LoaderCallbacks() {
+//            @Override
+//            public Loader onCreateLoader(int id, Bundle args) {
+//                return new AsyncTaskLoader(getApplicationContext()) {
+//                    @Override
+//                    public Boolean loadInBackground() {
+//                        try {
+//                                App apl = (App) getApplication();
+//                                HashMap mp = new HashMap();
+//                                mp.put("userToken", ((App) getApplicationContext()).getAuthToken().toString());
+//                                mp.put("link", link);
+//                                AuthRes res = (AuthRes) (apl).getApi().add_link(mp).execute().body();
+//
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                        return true;
+//                    }
+//                };
+//            }
+//
+//            @Override
+//            public void onLoadFinished(Loader loader, Object data) {
+//                Log.e("LOGTEST:", data.toString());
+//                Toast.makeText(getBaseContext(), R.string.link_added, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onLoaderReset(Loader loader) {}
+//
+//        }).forceLoad();
+//    }
 }

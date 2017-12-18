@@ -52,7 +52,7 @@ public class itemInfoFragment extends Fragment {
         discription_lbl_val.setText(item.description);
         //link_lbl_val.setText(item.shop.domain);
         date_lbl_val.setText((item.createDate == null) ? "" : new SimpleDateFormat("dd-MM-yyyy HH:mm").format(item.createDate) );
-        isHave_lbl_val.setText(item.inStock ? "Да" : "Нет");
+        isHave_lbl_val.setText(item.inStock ? R.string.yes : R.string.no);
         price_lbl_val.setText(String.format("%.2f",item.price));
         isHave_lbl_val.setTextColor(item.inStock ? MainActivity.getRes().getColor(R.color.colorAccent) : MainActivity.getRes().getColor(R.color.rowToDelete));
 

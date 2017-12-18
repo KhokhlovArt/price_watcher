@@ -15,7 +15,7 @@
     <string name="inf_tbl_shop_lbl">Магазин</string>
     <string name="inf_tbl_discr_lbl">Описание</string>
     <string name="inf_tbl_link_lbl">Ссылка</string>
-    <string name="inf_tbl_datecr_lbl">Создана</string>
+    <string name="inf_tbl_datecr_lbl">Изменена</string>
     <string name="inf_tbl_instock_lbl">Наличие</string>
     <string name="inf_tbl_price_lbl">Цена</string>
     <string name="login_opt_notif">Уведомления</string>
@@ -31,4 +31,11 @@
     <string name="add_link_hint">Добавьте ссылку</string>
     <string name="add_btn_add">Добавить</string>
     <string name="add_from_site">Добавить с сайта</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="add_res_1">Товар добавлен!</string>
+    <string name="add_res_2">Добавлен запрос магазина с этим товаром</string>
+    <string name="add_res_3">пользователь привязан к уже существующему товару</string>
+    <string name="add_res_m1">У вас уже есть такой товар</string>
+    <string name="add_res_default_err">Ой, произошла какая-то ошибка!</string>
 </resources>
