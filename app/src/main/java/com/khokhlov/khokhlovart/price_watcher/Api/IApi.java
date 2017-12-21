@@ -39,6 +39,6 @@ public interface IApi {
     @POST("rest/price/add")
     Call<AddResult> add_link(@Body HashMap<String, Integer> id);
 
-    @GET("getPriceHistory/{user_id}/{price_id}")
+    @GET("rest/getPriceHistory/{user_id}/{price_id}")
     Call<List<PriceHistoryItem>> getPriceHistory(@Path(value = "user_id", encoded = true) String userId, @Path(value = "price_id", encoded = true) int price_id);
 }
