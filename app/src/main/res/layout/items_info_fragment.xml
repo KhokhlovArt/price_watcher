@@ -58,39 +58,10 @@
             android:textSize="14sp"
             android:fontFamily="sans-serif"
             android:textStyle="normal"
-            android:textColor="#000000"
+            android:textColor="#0000FF"
             android:layout_span="2"
             tools:text="2-комнатная квартира на продажу г.Москва, поселение Внуковское, ул. Самуила Маршака, дом 6, Москва Москва"
             android:id="@+id/discription_lbl_val"
-            android:gravity="center_horizontal|center_vertical"
-            />
-    </TableRow>
-
-    <TableRow android:background="@color/mainColor_1">
-        <TextView
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/inf_tbl_link_lbl"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            android:id="@+id/link_lbl"
-            android:gravity="center_horizontal|center_vertical"
-            />
-
-        <TextView
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="14sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="#0000FF"
-            android:layout_span="2"
-            tools:text="Перейти"
-            android:id="@+id/link_lbl_val"
             android:gravity="center_horizontal|center_vertical"
             />
     </TableRow>

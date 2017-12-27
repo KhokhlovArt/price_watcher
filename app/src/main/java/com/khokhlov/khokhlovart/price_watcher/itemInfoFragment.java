@@ -20,7 +20,6 @@ public class itemInfoFragment extends Fragment {
     private Item item;
     private TextView shop_lbl_val;
     private TextView discription_lbl_val;
-    private TextView link_lbl_val;
     private TextView date_lbl_val;
 
     private TextView isHave_lbl_val;
@@ -43,7 +42,6 @@ public class itemInfoFragment extends Fragment {
 
         shop_lbl_val         = (TextView)       view.findViewById(R.id.shop_lbl_val);
         discription_lbl_val  = (TextView)       view.findViewById(R.id.discription_lbl_val);
-        link_lbl_val         = (TextView)       view.findViewById(R.id.link_lbl_val);
         date_lbl_val         = (TextView)       view.findViewById(R.id.date_lbl_val);
         isHave_lbl_val       = (TextView)       view.findViewById(R.id.isHave_lbl_val);
         price_lbl_val        = (TextView)       view.findViewById(R.id.price_lbl_val);
@@ -57,7 +55,7 @@ public class itemInfoFragment extends Fragment {
         isHave_lbl_val.setTextColor(item.inStock ? MainActivity.getRes().getColor(R.color.colorAccent) : MainActivity.getRes().getColor(R.color.rowToDelete));
 
 
-        link_lbl_val.setOnClickListener(new View.OnClickListener() {
+        discription_lbl_val.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.link));
