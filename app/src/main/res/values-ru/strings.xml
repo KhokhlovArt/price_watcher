@@ -26,7 +26,7 @@
     </array>
 
     <string name="sign_tmp_header">Регистрация</string>
-    <string name="sign_tmp_text">К сожалению, сейчас зарегистрироваться можно только на сайте</string>
+    <string name="sign_tmp_text">Ваш аккаунт зарегистрирован. Для подтверждения пройдите по ссылке из почты.</string>
     <string name="link_added">Ссылка добавлена!</string>
     <string name="add_link_hint">Добавьте ссылку</string>
     <string name="add_btn_add">Добавить</string>
@@ -38,4 +38,6 @@
     <string name="add_res_3">пользователь привязан к уже существующему товару</string>
     <string name="add_res_m1">У вас уже есть такой товар</string>
     <string name="add_res_default_err">Ой, произошла какая-то ошибка!</string>
+    <string name="signup_err_1">Такой пользователь уже зарегистрирован</string>
+    <string name="signup_err_default">Неопознанная ошибка регистрации</string>
 </resources>

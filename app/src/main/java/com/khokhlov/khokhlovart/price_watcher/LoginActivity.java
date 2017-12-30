@@ -1,8 +1,11 @@
 package com.khokhlov.khokhlovart.price_watcher;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,8 +60,12 @@ public class LoginActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialog = new DialogFragment();
-                dialog.show(getSupportFragmentManager(), "MyDialogFragmentTag");
+                if ((!etLogin.getText().toString().equals("")) && (!etPass.getText().toString().equals("")) &&
+                    (etLogin.getText() != null) && (etPass.getText() != null)){
+                    Signup();
+                }
+                /*DialogFragment dialog = new DialogFragment();
+                dialog.show(getSupportFragmentManager(), "MyDialogFragmentTag");*/
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         //Перезапускаем Сервис
         //startService(new Intent(this, MyGcmListenerService.class).putExtra("is_need_notification", b));
     }
+
     /********************************************************************************************************************
      ********************************  Loader-ы  ************************************************************************
      ********************************************************************************************************************/
@@ -152,8 +160,8 @@ public class LoginActivity extends AppCompatActivity {
                                 return null;
                             }
                             HashMap mp = new HashMap();
-                            mp.put("email",     etLogin.getText().toString());
-                            mp.put("password",  etPass.getText().toString());
+                            mp.put("email",    etLogin.getText().toString());
+                            mp.put("password", etPass.getText().toString());
                             mp.put("deviceId", token);
 
                             App apl = (App) getApplication();
@@ -190,6 +198,65 @@ public class LoginActivity extends AppCompatActivity {
         }).forceLoad();
     }
 
+    private void Signup() {
+        getSupportLoaderManager().restartLoader(MainActivity.LOADER_SIGNUP, null, new LoaderManager.LoaderCallbacks<SignupRes>() {
+            @Override
+            public Loader<SignupRes> onCreateLoader(int id, Bundle args) {
+
+                return new AsyncTaskLoader<SignupRes>(LoginActivity.this) {
+                    @Override
+                    public SignupRes loadInBackground() {
+                        try {
+                            HashMap mp = new HashMap();
+                            mp.put("email",     etLogin.getText().toString());
+                            mp.put("password",  etPass.getText().toString());
+
+                            App apl = (App) getApplication();
+                            SignupRes res = (SignupRes) (apl).getApi().signup(mp).execute().body();
+
+                            return res;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }
+                };
+            }
+
+            @Override
+            public void onLoadFinished(Loader<SignupRes> loader, SignupRes data) {
+
+                if (data != null) {
+                    if (data.status.equals("OK")) {
+                        Toast.makeText(getBaseContext(), R.string.sign_tmp_text , Toast.LENGTH_LONG).show();
+//                        DialogFragment dialog = new DialogFragment();
+//                        dialog.show(getSupportFragmentManager(), "MyDialogFragmentTag");
+                    }
+                    else
+                    {
+                        switch (data.code) {
+                            case 1: {
+                                //1 - Такой пользователь уже зарегистрирован
+                                Toast.makeText(getBaseContext(), R.string.signup_err_1 , Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                            default: {
+                                Toast.makeText(getBaseContext(), R.string.signup_err_default, Toast.LENGTH_SHORT).show();
+                                break;
+                            }
+                        }
+                    }
+                }else {
+                    Toast.makeText(getBaseContext(), R.string.signup_err_default, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onLoaderReset(Loader<SignupRes> loader) {
+
+            }
+        }).forceLoad();
+    }
     //********************************************************************************************************************
 //    public void getGSMToken() {
 //        getSupportLoaderManager().restartLoader(MainActivity.LOADER_GET_GSM_TOKEN, null, new LoaderManager.LoaderCallbacks<Void>() {

@@ -22,15 +22,16 @@ public class DialogFragment extends android.support.v4.app.DialogFragment{
         builder.setMessage(R.string.sign_tmp_text);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://price-watcher.ru/home"));
-                startActivity(browserIntent);
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://price-watcher.ru/home"));
+//                startActivity(browserIntent);
                 dialog.cancel();
             }
         });
+//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                dialog.cancel();
+//            }
+//        });
 
         // Create the AlertDialog object and return it
         return builder.create();

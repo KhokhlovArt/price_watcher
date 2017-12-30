@@ -4,6 +4,7 @@ import com.khokhlov.khokhlovart.price_watcher.AddResult;
 import com.khokhlov.khokhlovart.price_watcher.AuthRes;
 import com.khokhlov.khokhlovart.price_watcher.Item;
 import com.khokhlov.khokhlovart.price_watcher.PriceHistoryItem;
+import com.khokhlov.khokhlovart.price_watcher.SignupRes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,9 +27,11 @@ public interface IApi {
 //    @POST("rest/auth")
 //    Call<AuthRes> auth(@Query("email") String email, @Query("password") String password);
 
+    @POST("rest/signup")
+    Call<SignupRes> signup(@Body HashMap<String, String> body);
+
     @POST("rest/auth")
     Call<AuthRes> auth(@Body HashMap<String, String> body);
-
 
     @GET("rest/prices/{user_id}")
     Call<List<Item>> prices(@Path(value = "user_id", encoded = true) String userId);

@@ -26,7 +26,7 @@
     </array>
 
     <string name="sign_tmp_header">signin</string>
-    <string name="sign_tmp_text">Sorry, now you can register only on the site</string>
+    <string name="sign_tmp_text">Your account is registered. To confirm, follow the link from the mail.</string>
     <string name="link_added">Link has been added!</string>
     <string name="add_link_hint">Add link</string>
     <string name="add_btn_add">Add</string>
@@ -38,4 +38,6 @@
     <string name="add_res_3">user is attached to an existing product</string>
     <string name="add_res_m1">You already have this product</string>
     <string name="add_res_default_err">Ops! There was an error</string>
+    <string name="signup_err_1">This user is already registered</string>
+    <string name="signup_err_default">Unrecognized registration error</string>
 </resources>
