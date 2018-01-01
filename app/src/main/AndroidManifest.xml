@@ -72,7 +72,8 @@
             android:name="com.khokhlov.khokhlovart.price_watcher.itemInfoActivity"
             android:theme="@style/AppTheme.Toolbar" />
         <activity android:name="com.khokhlov.khokhlovart.price_watcher.AddActivity"
-                  android:theme="@style/AppTheme.Toolbar" ></activity>
+                  android:theme="@style/AppTheme.Toolbar"
+                  android:windowSoftInputMode="adjustResize"></activity>
     </application>
 
 </manifest>

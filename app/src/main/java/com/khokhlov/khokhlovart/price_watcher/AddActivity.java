@@ -1,5 +1,7 @@
 package com.khokhlov.khokhlovart.price_watcher;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.app.LoaderManager;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,13 +28,25 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        etLink       = (EditText) findViewById(R.id.add_link);
-        Button btn_add = (Button) findViewById(R.id.btn_add);
+        etLink                      = (EditText) findViewById(R.id.add_link);
+        Button btn_add              = (Button) findViewById(R.id.btn_add);
+        ImageButton btn_buffer_past = (ImageButton) findViewById(R.id.btn_buffer_past);
+
+        btn_buffer_past.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                ClipData clipData = clipboard.getPrimaryClip();
+                etLink.setText(clipData.getItemAt(0).getText());
+            }
+        });
+
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 add_link(etLink.getText().toString());
                 etLink.setText("");
+                finish();
             }
         });
 
@@ -115,10 +130,10 @@ public class AddActivity extends AppCompatActivity {
                     {
                         Toast.makeText(getBaseContext(), "Error: " + data.message , Toast.LENGTH_SHORT).show();
                     }
-
                 }
                 else
                 {
+                    Toast.makeText(getBaseContext(), R.string.add_res_default_err, Toast.LENGTH_SHORT).show();
                 }
             }
 
