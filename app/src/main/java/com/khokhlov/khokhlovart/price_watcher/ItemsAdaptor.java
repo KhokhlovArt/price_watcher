@@ -74,6 +74,15 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                     holder.tab_row.setBackgroundColor(position % 2 == 0 ? MainActivity.getRes().getColor(R.color.mainColor_1) : MainActivity.getRes().getColor(R.color.mainColor_2));
                     holder.btn_del.setVisibility(View.GONE);
                 }
+
+                if ( !itemList.get(position).inStock )
+                {
+                    holder.shop.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
+                    holder.description.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
+                    holder.date.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
+                    holder.isHave.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
+                    holder.cost.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
+                }
                 break;
             default:
                 break;

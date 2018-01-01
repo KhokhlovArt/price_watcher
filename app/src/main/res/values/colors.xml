@@ -4,11 +4,17 @@
     <color name="colorPrimaryDark">#707377</color>
     <color name="colorAccent">#28a745</color>
 
-    <color name="rowToDelete">#663d3d</color>
+    <color name="rowToDelete">#660000</color>
+    <color name="itemGone">#CC3333</color>
+
+    <color name="hintColor">#c9cccf</color>
 
     <color name="mainColor_1">#e9ecef</color>
     <color name="mainColor_2">#f8f9fa</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+
+    <color name="et_enabled_color">#333333</color>
+    <color name="et_disabled_color">#b9bcbf</color>
 </resources>

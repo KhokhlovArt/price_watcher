@@ -17,8 +17,8 @@
             android:layout_height="match_parent"
             app:title="@string/app_name"
             app:titleTextColor="@color/white"
+            app:navigationIcon="@drawable/ic_arrow_back_grean_24dp"
             android:id="@+id/toolbar_main"
-            app:navigationIcon="@drawable/logo"
             >
         </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout

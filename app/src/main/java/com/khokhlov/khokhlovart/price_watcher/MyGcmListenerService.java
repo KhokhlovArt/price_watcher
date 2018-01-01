@@ -59,8 +59,8 @@ public class MyGcmListenerService extends GcmListenerService {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.logo)
-                        .setContentTitle((titel == null) ? "Изменения" : titel)
-                        .setContentText((text == null) ? "Новые изменения" : text)
+                        .setContentTitle((titel == null) ? "Changes" : titel)
+                        .setContentText((text == null) ? "New changes" : text)
                         .setNumber(notifivation_count)
                         //.setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000})
                         .setAutoCancel(true);
