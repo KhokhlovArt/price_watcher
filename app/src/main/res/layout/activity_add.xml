@@ -23,7 +23,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,11 +31,9 @@
         android:hint="@string/add_link_hint"
         android:textColorHint="@color/colorPrimaryDark"
         android:textColor="@color/black"
-        android:textSize="@dimen/activity_horizontal_margin"
-        android:padding="@dimen/activity_horizontal_margin"
         android:gravity="center"
-        android:id="@+id/add_link"
         android:layout_margin="16dp"
+        android:id="@+id/add_link"
         />
     <ImageButton
         android:id="@+id/btn_buffer_past"

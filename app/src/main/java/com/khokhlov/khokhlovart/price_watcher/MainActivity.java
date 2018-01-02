@@ -61,7 +61,7 @@ private static AuthRes authRes;
         RecyclerView itemsRecyclerView = (RecyclerView) findViewById(R.id.items_recycler_view);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         api     = ((App) getApplication()).getApi();
-        adaptor = new ItemsAdaptor();
+        adaptor = new ItemsAdaptor(this);
         adaptor.setListener(new ItemsAdapterListener() {
             @Override
             public void onItemClick(Item item, int position) {

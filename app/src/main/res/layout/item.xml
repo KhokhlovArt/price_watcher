@@ -49,6 +49,7 @@
             style="@style/item_in_table"
             android:id="@+id/isHave"
             />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,6 +58,15 @@
             android:layout_marginRight="10dp"
             android:id="@+id/cost"
             />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/item_in_table"
+            android:background="@drawable/ic_brightness_1_grean_24dp"
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            android:id="@+id/light_img"/>
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

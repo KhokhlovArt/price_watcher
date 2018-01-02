@@ -9,8 +9,8 @@ android {
         applicationId "com.khokhlov.khokhlovart.price_watcher"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 14
-        versionName "1.14"
+        versionCode 15
+        versionName "1.15"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

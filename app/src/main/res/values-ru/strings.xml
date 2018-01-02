@@ -40,4 +40,10 @@
     <string name="add_res_default_err">Ой, произошла какая-то ошибка!</string>
     <string name="signup_err_1">Такой пользователь уже зарегистрирован</string>
     <string name="signup_err_default">Неопознанная ошибка регистрации</string>
+    <string name="shop_is_added">Магазин добавляется</string>
+    <string name="head_titel_shop">Магазин</string>
+    <string name="head_titel_cost">Цена</string>
+    <string name="head_titel_date">Дата</string>
+    <string name="head_titel_description">Описание</string>
+    <string name="head_titel_isHave">Наличие</string>
 </resources>

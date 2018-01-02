@@ -103,38 +103,38 @@ public class AddActivity extends AppCompatActivity {
                         switch (data.code) {
                             case 1: {
                                 //1   - товар добавлен как новый
-                                Toast.makeText(getBaseContext(), R.string.add_res_1 , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplication(), R.string.add_res_1 , Toast.LENGTH_SHORT).show();
                                 break;
                             }
                             case 2: {
                                 //2   - добавлен запрос магазина с этим товаром
-                                Toast.makeText(getBaseContext(), R.string.add_res_2 , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplication(), R.string.add_res_2 , Toast.LENGTH_SHORT).show();
                                 break;
                             }
                             case 3: {
                                 //3   - пользователь привязан к уже существующему товару
-                                Toast.makeText(getBaseContext(), R.string.add_res_1 , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplication(), R.string.add_res_1 , Toast.LENGTH_SHORT).show();
                                 break;
                             }
                             case -1: {
                                 //-1   - ошибка. У пользователя уже есть ссылка на такой товар
-                                Toast.makeText(getBaseContext(), R.string.add_res_m1 , Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplication(), R.string.add_res_m1 , Toast.LENGTH_SHORT).show();
                                 break;
                             }
                             default: {
-                                Toast.makeText(getBaseContext(), R.string.add_res_default_err, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplication(), R.string.add_res_default_err, Toast.LENGTH_SHORT).show();
                                 break;
                             }
                         }
                     }
                     else
                     {
-                        Toast.makeText(getBaseContext(), "Error: " + data.message , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplication(), "Error: " + data.message , Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
                 {
-                    Toast.makeText(getBaseContext(), R.string.add_res_default_err, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), R.string.add_res_default_err, Toast.LENGTH_SHORT).show();
                 }
             }
 

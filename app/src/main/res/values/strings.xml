@@ -40,4 +40,10 @@
     <string name="add_res_default_err">Ops! There was an error</string>
     <string name="signup_err_1">This user is already registered</string>
     <string name="signup_err_default">Unrecognized registration error</string>
+    <string name="shop_is_added">In the process of adding</string>
+    <string name="head_titel_shop">Shop</string>
+    <string name="head_titel_description">description</string>
+    <string name="head_titel_date">date</string>
+    <string name="head_titel_isHave">Availability</string>
+    <string name="head_titel_cost">Price</string>
 </resources>

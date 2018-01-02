@@ -1,5 +1,7 @@
 package com.khokhlov.khokhlovart.price_watcher;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +10,7 @@ import java.io.Serializable;
 public class Shop implements Serializable {
     public int id;
     public String domain;
+    @SerializedName("parserState")
     public boolean parserState ;
     Shop(int id, String domain, boolean parserState)
     {

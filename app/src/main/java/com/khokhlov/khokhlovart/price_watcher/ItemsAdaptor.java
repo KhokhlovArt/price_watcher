@@ -1,7 +1,10 @@
 package com.khokhlov.khokhlovart.price_watcher;
 
+import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +21,15 @@ import java.util.List;
  */
 
 public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHolder> {
+    private Activity baseActivity;
     private List<Item> itemList = new ArrayList<>();
     private ItemsAdapterListener clickListener = null;
     private SparseBooleanArray selectedItems = new SparseBooleanArray();
     public final int HEAD_HOLDER_TYPE = 0;
     public final int BODY_HOLDER_TYPE = 1;
 
-    public ItemsAdaptor(){
+    public ItemsAdaptor(Activity a){
+        baseActivity = a;
     }
 
     public void addItem(Item i){
@@ -59,13 +64,14 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 break;
             case BODY_HOLDER_TYPE:
                 Item item = itemList.get(position);
+                boolean isNeedLight = isNeedLight(item.id);
                 holder.bind(item, position, selectedItems.get(position, false), clickListener);
                 holder.setRow();
-                holder.shop.setText(itemList.get(position).shop.domain);
-                holder.description.setText(itemList.get(position).description);
-                holder.date.setText((itemList.get(position).createDate == null) ? "" : itemList.get(position).createDate.toString());
-                holder.isHave.setText(itemList.get(position).inStock ? "+" : "-");
-                holder.cost.setText(String.format("%.2f",itemList.get(position).price));
+                holder.shop.setText(        itemList.get(position).shop.domain);
+                holder.description.setText( (itemList.get(position).shop.parserState) ? itemList.get(position).description : MainActivity.getRes().getString(R.string.shop_is_added));
+                holder.date.setText(        (itemList.get(position).createDate == null) ? "" : itemList.get(position).createDate.toString());
+                holder.isHave.setText(      itemList.get(position).inStock ? "+" : "-");
+                holder.cost.setText(        String.format("%.2f",itemList.get(position).price));
                 holder.tab_row.setBackgroundColor(position % 2 == 0 ? MainActivity.getRes().getColor(R.color.mainColor_1) : MainActivity.getRes().getColor(R.color.mainColor_2));
                 if (holder.itemView.isActivated()) {
                     holder.tab_row.setBackgroundColor(MainActivity.getRes().getColor(R.color.rowToDelete));
@@ -83,6 +89,8 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                     holder.isHave.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
                     holder.cost.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
                 }
+
+                holder.img_light.setVisibility(isNeedLight ? View.VISIBLE : View.GONE );
                 break;
             default:
                 break;
@@ -130,7 +138,24 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         notifyItemRemoved(pos);
         return item;
     }
+    private boolean isNeedLight(int itemId)
+    {
+        boolean isNeedLight = false;
+        App apl = (App) baseActivity.getApplication();
+        String lightItemsInStr = apl.getPreferences(apl.IS_CHANGE_ITEM);
+        if  (lightItemsInStr != null) {
+            String[] lightId = lightItemsInStr.split(",");
 
+            for (int i = 0; i < lightId.length; i++) {
+                if (lightId[i].equals(Integer.toString(itemId))) {
+                    isNeedLight = true;
+                    apl.setPreferences(apl.IS_CHANGE_ITEM, lightItemsInStr.replace("," + Integer.toString(itemId), ""));
+                    break;
+                }
+            }
+        }
+        return isNeedLight;
+    }
     /****************************************************************************************************************
      ******************************** ItemViewHolder *****************************************************************
      ****************************************************************************************************************/
@@ -142,6 +167,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         public TextView isHave;
         public TextView cost;
         public TableRow tab_row;
+        public ImageButton img_light;
         public ImageButton btn_del;
         public ItemViewHolder(View itemView) {
             super(itemView);
@@ -152,6 +178,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
             date        = (TextView) itemView.findViewById(R.id.date);
             isHave      = (TextView) itemView.findViewById(R.id.isHave);
             cost        = (TextView) itemView.findViewById(R.id.cost);
+            img_light   = (ImageButton) itemView.findViewById(R.id.light_img);
             btn_del     = (ImageButton) itemView.findViewById(R.id.btn_del);
         }
 
@@ -176,11 +203,12 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
 
         public void setHeader()
         {
-            setHeadStyle(shop,       "Магазин");
-            setHeadStyle(description,"Описание");
-            setHeadStyle(date,       "Дата");
-            setHeadStyle(isHave,     "Наличие");
-            setHeadStyle(cost,       "Цена");
+            Resources r = MainActivity.getRes();
+            setHeadStyle(shop,        r.getString(R.string.head_titel_shop));
+            setHeadStyle(description, r.getString(R.string.head_titel_description));
+            setHeadStyle(date,        r.getString(R.string.head_titel_date));
+            setHeadStyle(isHave,      r.getString(R.string.head_titel_isHave));
+            setHeadStyle(cost,        r.getString(R.string.head_titel_cost));
         }
         public void setRow()
         {

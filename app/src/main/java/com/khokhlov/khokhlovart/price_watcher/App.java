@@ -26,6 +26,7 @@ public class App extends Application {
     public  static final String KEY_AUTH_USER_EMAIL     = "userEmail";
     public  static final String KEY_AUTH_USER_GCM_Token = "userGCMToken";
     public  static final String OPTIONS_NOTIFICATION    = "notification";
+    public  static final String IS_CHANGE_ITEM          = "is_change_item";
     @Override
     public void onCreate() {
         super.onCreate();

@@ -46,10 +46,17 @@ public class MyGcmListenerService extends GcmListenerService {
         if (from.equals(MainActivity.SENDER_ID)) {
             String message = data.getString("message");
             String title   = data.getString("title");
+
             App apl = (App) getApplication();
-            String notif_options = apl.getPreferences(apl.OPTIONS_NOTIFICATION);
-            if (notif_options.equals("true")) {
+            String notificationOptions = apl.getPreferences(apl.OPTIONS_NOTIFICATION);
+            if (notificationOptions.equals("true")) {
+
                 sendNotification(title, message);
+                String id = data.getString("priceId"); // Сохраняем в пямяти какие элементы надо будет подсветить
+                if (id != null) {
+                    String lightItems = apl.getPreferences(apl.IS_CHANGE_ITEM);
+                    apl.setPreferences(apl.IS_CHANGE_ITEM, lightItems + "," + id.toString());
+                }
             }
         }
     }
