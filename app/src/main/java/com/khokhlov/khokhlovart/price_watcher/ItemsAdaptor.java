@@ -61,6 +61,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         switch (holder.getItemViewType()) {
             case HEAD_HOLDER_TYPE:
                 holder.setHeader();
+                holder.tab_row.setBackgroundColor(MainActivity.getRes().getColor(R.color.mainColor_1));
                 break;
             case BODY_HOLDER_TYPE:
                 Item item = itemList.get(position);
