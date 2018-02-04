@@ -3,6 +3,7 @@ package com.khokhlov.khokhlovart.price_watcher;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -10,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +41,14 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
 
     public void setItems(List<Item> listItms){
         this.itemList = listItms;
-        this.itemList.add(0, new Item("-", "-", "-", false, 0)); // Костыль что бы вставить шапку таблицы
+        //this.itemList.add(0, new Item("-", "-", "-", false, 0)); // Костыль что бы вставить шапку таблицы
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return (position == 0 ? HEAD_HOLDER_TYPE : BODY_HOLDER_TYPE);
+        //return (position == 0 ? HEAD_HOLDER_TYPE : BODY_HOLDER_TYPE);
+        return BODY_HOLDER_TYPE;
     }
 
     public void setListener(ItemsAdapterListener listener) {
@@ -61,7 +65,6 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         switch (holder.getItemViewType()) {
             case HEAD_HOLDER_TYPE:
                 holder.setHeader();
-                holder.tab_row.setBackgroundColor(MainActivity.getRes().getColor(R.color.mainColor_1));
                 break;
             case BODY_HOLDER_TYPE:
                 Item item = itemList.get(position);
@@ -70,26 +73,24 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 holder.setRow();
                 holder.shop.setText(        itemList.get(position).shop.domain);
                 holder.description.setText( (itemList.get(position).shop.parserState) ? itemList.get(position).description : MainActivity.getRes().getString(R.string.shop_is_added));
-                holder.date.setText(        (itemList.get(position).createDate == null) ? "" : itemList.get(position).createDate.toString());
-                holder.isHave.setText(      itemList.get(position).inStock ? "+" : "-");
+                holder.date.setText(        (itemList.get(position).createDate == null) ? "" :  new SimpleDateFormat("dd-MM-yyyy HH:mm").format(itemList.get(position).createDate));
+                holder.isHave.setText(      itemList.get(position).inStock ? MainActivity.getRes().getString(R.string.in_stock) :  MainActivity.getRes().getString(R.string.not_in_stock) );
                 holder.cost.setText(        String.format("%.2f",itemList.get(position).price));
-                holder.tab_row.setBackgroundColor(position % 2 == 0 ? MainActivity.getRes().getColor(R.color.mainColor_1) : MainActivity.getRes().getColor(R.color.mainColor_2));
                 if (holder.itemView.isActivated()) {
-                    holder.tab_row.setBackgroundColor(MainActivity.getRes().getColor(R.color.rowToDelete));
+                    holder.itemCard.setBackgroundColor(MainActivity.getRes().getColor(R.color.rowToDelete));
                     holder.btn_del.setVisibility(View.VISIBLE);
                 } else {
-                    holder.tab_row.setBackgroundColor(position % 2 == 0 ? MainActivity.getRes().getColor(R.color.mainColor_1) : MainActivity.getRes().getColor(R.color.mainColor_2));
+                    //holder.itemCard.setBackground(ResourcesCompat.getDrawable(MainActivity.getRes(), R.drawable.back_repeat, null));
+                    holder.itemCard.setBackgroundColor(MainActivity.getRes().getColor(R.color.mainColor_1));
                     holder.btn_del.setVisibility(View.GONE);
                 }
 
-                if ( !itemList.get(position).inStock )
-                {
-                    holder.shop.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
-                    holder.description.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
-                    holder.date.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
-                    holder.isHave.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
-                    holder.cost.setTextColor(MainActivity.getRes().getColor(R.color.itemGone));
-                }
+                boolean itemInStock = itemList.get(position).inStock;
+                holder.shop.setTextColor(MainActivity.getRes().getColor(        itemInStock ? R.color.colorPrimary : R.color.itemGone));
+                holder.description.setTextColor(MainActivity.getRes().getColor( itemInStock ? R.color.black        : R.color.itemGone));
+                holder.date.setTextColor(MainActivity.getRes().getColor(        itemInStock ? R.color.colorPrimary : R.color.itemGone));
+                holder.isHave.setTextColor(MainActivity.getRes().getColor(      itemInStock ? R.color.colorPrimary : R.color.itemGone));
+                holder.cost.setTextColor(MainActivity.getRes().getColor(        itemInStock ? R.color.colorAccent  : R.color.itemGone));
 
                 holder.img_light.setVisibility(isNeedLight ? View.VISIBLE : View.GONE );
                 break;
@@ -100,7 +101,6 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
 
     @Override
     public int getItemCount() {
-//        return itemList.size() + 1;
         return itemList.size();
     }
 
@@ -161,21 +161,19 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
      ******************************** ItemViewHolder *****************************************************************
      ****************************************************************************************************************/
     public class ItemViewHolder extends RecyclerView.ViewHolder{
+        public RelativeLayout itemCard;
         public TextView shop;
         public TextView description;
-        public TextView link;
         public TextView date;
         public TextView isHave;
         public TextView cost;
-        public TableRow tab_row;
         public ImageButton img_light;
         public ImageButton btn_del;
         public ItemViewHolder(View itemView) {
             super(itemView);
-            tab_row     = (TableRow) itemView.findViewById(R.id.tab_row);
+            itemCard    = (RelativeLayout) itemView.findViewById(R.id.item_card);
             shop        = (TextView) itemView.findViewById(R.id.shop);
             description = (TextView) itemView.findViewById(R.id.description);
-            link        = (TextView) itemView.findViewById(R.id.link);
             date        = (TextView) itemView.findViewById(R.id.date);
             isHave      = (TextView) itemView.findViewById(R.id.isHave);
             cost        = (TextView) itemView.findViewById(R.id.cost);
@@ -228,8 +226,8 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         }
         private void setRowStyle(TextView v)
         {
-            v.setTypeface(null, Typeface.NORMAL);
-            v.setTextColor(MainActivity.getRes().getColor(R.color.colorPrimary));
+//            v.setTypeface(null, Typeface.NORMAL);
+//            v.setTextColor(MainActivity.getRes().getColor(R.color.colorPrimary));
         }
     }
 }

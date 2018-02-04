@@ -6,7 +6,8 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainColor_2"
+
+    android:background="@drawable/back_repeat"
     tools:context="com.khokhlov.khokhlovart.price_watcher.MainActivity">
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

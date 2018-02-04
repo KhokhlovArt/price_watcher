@@ -46,4 +46,6 @@
     <string name="head_titel_date">Дата</string>
     <string name="head_titel_description">Описание</string>
     <string name="head_titel_isHave">Наличие</string>
+    <string name="not_in_stock">нет в наличии</string>
+    <string name="in_stock">в наличии</string>
 </resources>

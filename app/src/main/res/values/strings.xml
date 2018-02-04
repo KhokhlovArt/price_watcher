@@ -46,4 +46,6 @@
     <string name="head_titel_date">date</string>
     <string name="head_titel_isHave">Availability</string>
     <string name="head_titel_cost">Price</string>
+    <string name="not_in_stock">not in stock</string>
+    <string name="in_stock">in stock</string>
 </resources>
