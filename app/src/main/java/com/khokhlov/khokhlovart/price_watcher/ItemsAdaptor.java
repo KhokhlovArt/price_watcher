@@ -3,17 +3,16 @@ package com.khokhlov.khokhlovart.price_watcher;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.khokhlov.khokhlovart.price_watcher.Results.Item;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

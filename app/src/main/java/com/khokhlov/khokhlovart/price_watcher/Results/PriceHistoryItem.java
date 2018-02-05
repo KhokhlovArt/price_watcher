@@ -1,4 +1,4 @@
-package com.khokhlov.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher.Results;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,4 +1,4 @@
-package com.khokhlov.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher.ItemInfo;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.khokhlov.khokhlovart.price_watcher.MainActivity;
+import com.khokhlov.khokhlovart.price_watcher.R;
+import com.khokhlov.khokhlovart.price_watcher.Results.Item;
 
 import java.text.SimpleDateFormat;
 

@@ -1,5 +1,7 @@
 package com.khokhlov.khokhlovart.price_watcher;
 
+import com.khokhlov.khokhlovart.price_watcher.Results.Item;
+
 /**
  * Created by Dom on 25.11.2017.
  */

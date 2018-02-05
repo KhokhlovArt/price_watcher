@@ -1,10 +1,10 @@
 package com.khokhlov.khokhlovart.price_watcher.Api;
 
-import com.khokhlov.khokhlovart.price_watcher.AddResult;
-import com.khokhlov.khokhlovart.price_watcher.AuthRes;
-import com.khokhlov.khokhlovart.price_watcher.Item;
-import com.khokhlov.khokhlovart.price_watcher.PriceHistoryItem;
-import com.khokhlov.khokhlovart.price_watcher.SignupRes;
+import com.khokhlov.khokhlovart.price_watcher.Results.AddResult;
+import com.khokhlov.khokhlovart.price_watcher.Results.AuthRes;
+import com.khokhlov.khokhlovart.price_watcher.Results.Item;
+import com.khokhlov.khokhlovart.price_watcher.Results.PriceHistoryItem;
+import com.khokhlov.khokhlovart.price_watcher.Results.SignupRes;
 
 import java.util.HashMap;
 import java.util.List;

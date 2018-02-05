@@ -10,14 +10,13 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.khokhlov.khokhlovart.price_watcher.Results.AddResult;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -59,7 +58,9 @@ public class AddActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://price-watcher.ru/home"));
-                startActivity(browserIntent);
+                if (browserIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(browserIntent);
+                }
             }
         });
 

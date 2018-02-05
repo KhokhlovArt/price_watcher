@@ -1,9 +1,12 @@
-package com.khokhlov.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher.ItemInfo;
 
 import android.content.res.Resources;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.khokhlov.khokhlovart.price_watcher.R;
+import com.khokhlov.khokhlovart.price_watcher.Results.Item;
 
 /**
  * Created by Dom on 03.12.2017.

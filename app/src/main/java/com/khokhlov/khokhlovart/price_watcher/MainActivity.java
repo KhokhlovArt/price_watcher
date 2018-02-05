@@ -17,6 +17,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.khokhlov.khokhlovart.price_watcher.Api.IApi;
+import com.khokhlov.khokhlovart.price_watcher.ItemInfo.itemInfoActivity;
+import com.khokhlov.khokhlovart.price_watcher.Results.AuthRes;
+import com.khokhlov.khokhlovart.price_watcher.Results.Item;
 
 import java.io.IOException;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package com.khokhlov.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher.Results;
 
 /**
  * Created by Dom on 26.11.2017.

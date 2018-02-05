@@ -1,4 +1,4 @@
-package com.khokhlov.khokhlovart.price_watcher;
+package com.khokhlov.khokhlovart.price_watcher.ItemInfo;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,13 @@ import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
 import com.jjoe64.graphview.series.OnDataPointTapListener;
 import com.jjoe64.graphview.series.Series;
+import com.khokhlov.khokhlovart.price_watcher.App;
+import com.khokhlov.khokhlovart.price_watcher.MainActivity;
+import com.khokhlov.khokhlovart.price_watcher.R;
+import com.khokhlov.khokhlovart.price_watcher.Results.Item;
+import com.khokhlov.khokhlovart.price_watcher.Results.PriceHistoryItem;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
