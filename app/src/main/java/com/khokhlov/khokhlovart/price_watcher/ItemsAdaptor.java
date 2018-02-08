@@ -74,7 +74,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 holder.description.setText( (itemList.get(position).shop.parserState) ? itemList.get(position).description : MainActivity.getRes().getString(R.string.shop_is_added));
                 holder.date.setText(        (itemList.get(position).createDate == null) ? "" :  new SimpleDateFormat("dd-MM-yyyy HH:mm").format(itemList.get(position).createDate));
                 holder.isHave.setText(      itemList.get(position).inStock ? MainActivity.getRes().getString(R.string.in_stock) :  MainActivity.getRes().getString(R.string.not_in_stock) );
-                holder.cost.setText(        String.format("%.2f",itemList.get(position).price));
+                holder.cost.setText(        PWService.formatPrice(itemList.get(position).price));
                 if (holder.itemView.isActivated()) {
                     holder.itemCard.setBackgroundColor(MainActivity.getRes().getColor(R.color.rowToDelete));
                     holder.btn_del.setVisibility(View.VISIBLE);

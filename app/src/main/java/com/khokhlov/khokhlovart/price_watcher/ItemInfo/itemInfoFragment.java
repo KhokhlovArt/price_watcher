@@ -11,9 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.khokhlov.khokhlovart.price_watcher.MainActivity;
+import com.khokhlov.khokhlovart.price_watcher.PWService;
 import com.khokhlov.khokhlovart.price_watcher.R;
 import com.khokhlov.khokhlovart.price_watcher.Results.Item;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 
 /**
@@ -55,9 +58,9 @@ public class itemInfoFragment extends Fragment {
         //link_lbl_val.setText(item.shop.domain);
         date_lbl_val.setText((item.createDate == null) ? "" : new SimpleDateFormat("dd-MM-yyyy HH:mm").format(item.createDate) );
         isHave_lbl_val.setText(item.inStock ? R.string.yes : R.string.no);
-        price_lbl_val.setText(String.format("%.2f",item.price));
-        isHave_lbl_val.setTextColor(item.inStock ? MainActivity.getRes().getColor(R.color.colorAccent) : MainActivity.getRes().getColor(R.color.rowToDelete));
+        price_lbl_val.setText(PWService.formatPrice(item.price));
 
+        isHave_lbl_val.setTextColor(item.inStock ? MainActivity.getRes().getColor(R.color.colorAccent) : MainActivity.getRes().getColor(R.color.rowToDelete));
 
         discription_lbl_val.setOnClickListener(new View.OnClickListener() {
             @Override
