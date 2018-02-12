@@ -6,38 +6,70 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:fitsSystemWindows="true"
     android:background="@drawable/back_repeat"
     tools:context="com.khokhlov.khokhlovart.price_watcher.MainActivity">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.Toolbar
+        android:layout_height="192dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:id="@+id/appbar"
+        android:fitsSystemWindows="true" >
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:title="@string/app_name"
-            app:titleTextColor="@color/white"
-            android:id="@+id/toolbar_main"
-            app:navigationIcon="@drawable/logo"
-            >
-        </android.support.v7.widget.Toolbar>
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
+            app:expandedTitleMarginBottom="32dp"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp" >
+
+            <ImageView
+                android:id="@+id/header_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_repeat"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                android:fitsSystemWindows="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_lbl"
+                android:textSize="24dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="75dp"
+                app:layout_collapseMode="parallax"
+                android:textColor="@color/black"
+                android:id="@+id/textView"
+                />
+
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/app_name"
+                app:layout_collapseMode="pin"
+                app:titleTextColor="@color/white"
+                android:id="@+id/toolbar_main"
+                app:navigationIcon="@drawable/logo"
+                >
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/main_lbl"
-            android:textSize="24dp"
-            android:layout_margin="16dp"
-            android:textColor="@color/black"
-            android:id="@+id/textView"
-            />
+        >
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh_layout"
@@ -52,5 +84,18 @@
                 android:layout_height="match_parent" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
-    </LinearLayout>
+
+    </FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="center_vertical|right"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="120dp"
+        android:src = "@drawable/ic_add_white_24dp"
+        app:layout_collapseMode="parallax"
+        app:layout_anchor="@+id/appbar"
+        android:id="@+id/fab_add"
+        android:layout_gravity="bottom|left" />
 </android.support.design.widget.CoordinatorLayout>

@@ -69,7 +69,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 Item item = itemList.get(position);
                 boolean isNeedLight = isNeedLight(item.id);
                 holder.bind(item, position, selectedItems.get(position, false), clickListener);
-                holder.setRow();
+
                 holder.shop.setText(        itemList.get(position).shop.domain);
                 holder.description.setText( (itemList.get(position).shop.parserState) ? itemList.get(position).description : MainActivity.getRes().getString(R.string.shop_is_added));
                 holder.date.setText(        (itemList.get(position).createDate == null) ? "" :  new SimpleDateFormat("dd-MM-yyyy HH:mm").format(itemList.get(position).createDate));
@@ -208,14 +208,6 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
             setHeadStyle(isHave,      r.getString(R.string.head_titel_isHave));
             setHeadStyle(cost,        r.getString(R.string.head_titel_cost));
         }
-        public void setRow()
-        {
-            setRowStyle(shop);
-            setRowStyle(description);
-            setRowStyle(date);
-            setRowStyle(isHave);
-            setRowStyle(cost);
-        }
 
         private void setHeadStyle(TextView v, String text)
         {
@@ -223,10 +215,6 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
             v.setTypeface(null, Typeface.BOLD);
             v.setTextColor(MainActivity.getRes().getColor(R.color.black));
         }
-        private void setRowStyle(TextView v)
-        {
-//            v.setTypeface(null, Typeface.NORMAL);
-//            v.setTextColor(MainActivity.getRes().getColor(R.color.colorPrimary));
-        }
+
     }
 }

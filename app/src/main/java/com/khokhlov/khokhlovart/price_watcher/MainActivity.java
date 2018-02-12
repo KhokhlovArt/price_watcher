@@ -2,6 +2,8 @@ package com.khokhlov.khokhlovart.price_watcher;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.khokhlov.khokhlovart.price_watcher.Api.IApi;
 import com.khokhlov.khokhlovart.price_watcher.ItemInfo.itemInfoActivity;
@@ -23,7 +26,6 @@ import com.khokhlov.khokhlovart.price_watcher.Results.Item;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.security.AccessControlContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,13 +34,14 @@ import static java.security.AccessController.getContext;
 
 public class MainActivity extends AppCompatActivity {
     private static Resources res;
-    private static AccessControlContext cntxt;
     private SwipeRefreshLayout refreshLayout;
     public ItemsAdaptor adaptor;
     private IApi api;
     private static Toolbar mActionBarToolbar;
+    private CollapsingToolbarLayout collapsingToolbar;
     private ActionMode actionMode;
     private List<Integer> idItemsToDelete = new ArrayList<>();
+    private FloatingActionButton fabAdd;
 
     public static final int LOADER_ITEMS         = 0;
     public static final int LOADER_AUTH          = 1;
@@ -57,10 +60,13 @@ private static AuthRes authRes;
         super.onCreate(savedInstanceState);
         MyGcmListenerService.notifivation_count = 0;
         setContentView(R.layout.activity_main);
-        mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        mActionBarToolbar = (Toolbar)              findViewById(R.id.toolbar_main);
+        fabAdd            = (FloatingActionButton) findViewById(R.id.fab_add);
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle(getString(R.string.app_name));
+        collapsingToolbar.setExpandedTitleColor(getResources().getColor(R.color.black));
         setSupportActionBar(mActionBarToolbar);
         setRes(getResources());
-        cntxt = getContext();
         RecyclerView itemsRecyclerView = (RecyclerView) findViewById(R.id.items_recycler_view);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         api     = ((App) getApplication()).getApi();
@@ -98,11 +104,7 @@ private static AuthRes authRes;
                 return actionMode != null;
             }
         });
-
         itemsRecyclerView.setAdapter(adaptor);
-
-//        Auth();
-
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.refresh_layout);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -111,7 +113,13 @@ private static AuthRes authRes;
                 refreshLayout.setRefreshing(false);
             }
         });
-
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getBaseContext(), AddActivity.class);
+                startActivity(intent);
+            }
+        });
         startService(new Intent(this, MyGcmListenerService.class));
 
 //        App apl = (App) getApplication();
@@ -159,7 +167,6 @@ private static AuthRes authRes;
     public static Resources getRes() {
         return res;
     }
-    public static AccessControlContext getCntxt() { return cntxt;}
     public void setRes(Resources res) {
         this.res = res;
     }
