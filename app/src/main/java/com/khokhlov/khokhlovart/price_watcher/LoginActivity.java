@@ -164,12 +164,11 @@ public class LoginActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 //!!!!!!!!!!!! Пока висят гугловские сервисы
+//token = "ebani_google_visit!";
                             if (token == null)
                             {
                                 return null;
                             }
-//token = "ebani_google_visit!";
-
                             HashMap mp = new HashMap();
                             mp.put("email",    etLogin.getText().toString());
                             mp.put("password", etPass.getText().toString());

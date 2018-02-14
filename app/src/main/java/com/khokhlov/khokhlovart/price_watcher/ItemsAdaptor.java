@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.khokhlov.khokhlovart.price_watcher.Models.ItemListModels;
 import com.khokhlov.khokhlovart.price_watcher.Results.Item;
 
 import java.text.SimpleDateFormat;
@@ -21,22 +22,23 @@ import java.util.List;
 
 public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHolder> {
     private Activity baseActivity;
-    private List<Item> itemList = new ArrayList<>();
+    private ItemListModels mdl;
     private ItemsAdapterListener clickListener = null;
-    private SparseBooleanArray selectedItems = new SparseBooleanArray();
     public final int HEAD_HOLDER_TYPE = 0;
     public final int BODY_HOLDER_TYPE = 1;
 
-    public ItemsAdaptor(Activity a){
+    public ItemsAdaptor(Activity a, ItemListModels mdl)
+    {
         baseActivity = a;
+        this.mdl = mdl;
     }
 
     public void addItem(Item i){
-        itemList.add(i);
+        mdl.itemList.add(i);
     }
 
     public void setItems(List<Item> listItms){
-        this.itemList = listItms;
+        mdl.itemList = listItms;
         //this.itemList.add(0, new Item("-", "-", "-", false, 0)); // Костыль что бы вставить шапку таблицы
         notifyDataSetChanged();
     }
@@ -63,15 +65,15 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 holder.setHeader();
                 break;
             case BODY_HOLDER_TYPE:
-                Item item = itemList.get(position);
+                Item item = mdl.itemList.get(position);
                 boolean isNeedLight = isNeedLight(item.id);
-                holder.bind(item, position, selectedItems.get(position, false), clickListener);
+                holder.bind(item, position, mdl.selectedItems.get(position, false), clickListener);
 
-                holder.shop.setText(        itemList.get(position).shop.domain);
-                holder.description.setText( (itemList.get(position).shop.parserState) ? itemList.get(position).description : MainActivity.getRes().getString(R.string.shop_is_added));
-                holder.date.setText(        (itemList.get(position).createDate == null) ? "" :  new SimpleDateFormat("dd-MM-yyyy HH:mm").format(itemList.get(position).createDate));
-                holder.isHave.setText(      itemList.get(position).inStock ? MainActivity.getRes().getString(R.string.in_stock) :  MainActivity.getRes().getString(R.string.not_in_stock) );
-                holder.cost.setText(        PWService.formatPrice(itemList.get(position).price));
+                holder.shop.setText(        mdl.itemList.get(position).shop.domain);
+                holder.description.setText( (mdl.itemList.get(position).shop.parserState) ? mdl.itemList.get(position).description : MainActivity.getRes().getString(R.string.shop_is_added));
+                holder.date.setText(        (mdl.itemList.get(position).createDate == null) ? "" :  new SimpleDateFormat("dd-MM-yyyy HH:mm").format(mdl.itemList.get(position).createDate));
+                holder.isHave.setText(      mdl.itemList.get(position).inStock ? MainActivity.getRes().getString(R.string.in_stock) :  MainActivity.getRes().getString(R.string.not_in_stock) );
+                holder.cost.setText(        PWService.formatPrice(mdl.itemList.get(position).price));
                 if (holder.itemView.isActivated()) {
                     holder.itemCard.setBackgroundColor(MainActivity.getRes().getColor(R.color.rowToDelete));
                     holder.btn_del.setVisibility(View.VISIBLE);
@@ -81,7 +83,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                     holder.btn_del.setVisibility(View.GONE);
                 }
 
-                boolean itemInStock = itemList.get(position).inStock;
+                boolean itemInStock = mdl.itemList.get(position).inStock;
                 holder.shop.setTextColor(MainActivity.getRes().getColor(        itemInStock ? R.color.colorPrimary : R.color.itemGone));
                 holder.description.setTextColor(MainActivity.getRes().getColor( itemInStock ? R.color.black        : R.color.itemGone));
                 holder.date.setTextColor(MainActivity.getRes().getColor(        itemInStock ? R.color.colorPrimary : R.color.itemGone));
@@ -97,41 +99,41 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return mdl.itemList.size();
     }
 
     public void toggleSelection(int pos) {
-        if (selectedItems.get(pos, false)) {
-            selectedItems.delete(pos);
+        if (mdl.selectedItems.get(pos, false)) {
+            mdl.selectedItems.delete(pos);
         } else {
-            selectedItems.put(pos, true);
+            mdl.selectedItems.put(pos, true);
         }
         notifyItemChanged(pos);
     }
 
     void clearSelections() {
-        selectedItems.clear();
+        mdl.selectedItems.clear();
         notifyDataSetChanged();
     }
 
     public Item getItemByPosition(int pos) {
-        return itemList.get(pos);
+        return mdl.itemList.get(pos);
     }
 
     int getSelectedItemCount() {
-        return selectedItems.size();
+        return mdl.selectedItems.size();
     }
 
     List<Integer> getSelectedItems() {
-        List<Integer> items = new ArrayList<>(selectedItems.size());
-        for (int i = 0; i < selectedItems.size(); i++) {
-            items.add(selectedItems.keyAt(i));
+        List<Integer> items = new ArrayList<>(mdl.selectedItems.size());
+        for (int i = 0; i < mdl.selectedItems.size(); i++) {
+            items.add(mdl.selectedItems.keyAt(i));
         }
         return items;
     }
 
     Item remove(int pos) {
-        final Item item = itemList.remove(pos);
+        final Item item = mdl.itemList.remove(pos);
         notifyItemRemoved(pos);
         return item;
     }

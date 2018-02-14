@@ -22,6 +22,7 @@ import android.view.View;
 
 import com.khokhlov.khokhlovart.price_watcher.Api.IApi;
 import com.khokhlov.khokhlovart.price_watcher.ItemInfo.itemInfoActivity;
+import com.khokhlov.khokhlovart.price_watcher.Models.ItemListModels;
 import com.khokhlov.khokhlovart.price_watcher.Results.AuthRes;
 import com.khokhlov.khokhlovart.price_watcher.Results.Item;
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView itemsRecyclerView = (RecyclerView) findViewById(R.id.items_recycler_view);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         api     = ((App) getApplication()).getApi();
-        adaptor = new ItemsAdaptor(this);
+        adaptor = new ItemsAdaptor(this, new ItemListModels());
         adaptor.setListener(new ItemsAdapterListener() {
             @Override
             public void onItemClick(Item item, int position) {
