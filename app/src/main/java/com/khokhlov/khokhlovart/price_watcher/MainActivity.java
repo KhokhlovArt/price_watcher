@@ -2,6 +2,7 @@ package com.khokhlov.khokhlovart.price_watcher;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
@@ -30,18 +31,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static java.security.AccessController.getContext;
-
 public class MainActivity extends AppCompatActivity {
     private static Resources res;
     private SwipeRefreshLayout refreshLayout;
     public ItemsAdaptor adaptor;
     private IApi api;
-    private static Toolbar mActionBarToolbar;
-    private CollapsingToolbarLayout collapsingToolbar;
     private ActionMode actionMode;
     private List<Integer> idItemsToDelete = new ArrayList<>();
-    private FloatingActionButton fabAdd;
 
     public static final int LOADER_ITEMS         = 0;
     public static final int LOADER_AUTH          = 1;
@@ -52,20 +48,20 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String SENDER_ID = "829446502336";
     public static final String CHEK_ITEM = "chek_item";
-private static AuthRes authRes;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyGcmListenerService.notifivation_count = 0;
         setContentView(R.layout.activity_main);
-        mActionBarToolbar = (Toolbar)              findViewById(R.id.toolbar_main);
-        fabAdd            = (FloatingActionButton) findViewById(R.id.fab_add);
-        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(getString(R.string.app_name));
         collapsingToolbar.setExpandedTitleColor(getResources().getColor(R.color.black));
+
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mActionBarToolbar);
+
         setRes(getResources());
         RecyclerView itemsRecyclerView = (RecyclerView) findViewById(R.id.items_recycler_view);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -95,7 +91,7 @@ private static AuthRes authRes;
                 if (isInActionMode()) {
                     return;
                 }
-                actionMode = ((AppCompatActivity) MainActivity.this).startSupportActionMode(actionModeCallback);
+                actionMode = (MainActivity.this).startSupportActionMode(actionModeCallback);
                 adaptor.toggleSelection(position);
                 actionMode.setTitle(getString(R.string.delete));
             }
@@ -113,11 +109,22 @@ private static AuthRes authRes;
                 refreshLayout.setRefreshing(false);
             }
         });
+
+        FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fab_add);
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), AddActivity.class);
                 startActivity(intent);
+            }
+        });
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (findViewById(R.id.menu_add) != null) {
+                    findViewById(R.id.menu_add).setVisibility( (Math.abs(verticalOffset) - appBarLayout.getTotalScrollRange() == 0) ? View.VISIBLE : View.INVISIBLE);
+                }
             }
         });
         startService(new Intent(this, MyGcmListenerService.class));
@@ -223,7 +230,6 @@ private static AuthRes authRes;
         if (actionMode != null) { actionMode.finish(); }
     }
 
-    public static Toolbar getToolbar(){ return mActionBarToolbar;}
 
     /********************************************************************************************************************
      ********************************  Loader-ы  ************************************************************************
@@ -238,7 +244,8 @@ private static AuthRes authRes;
 
                     public List<Item> loadInBackground() {
                         try {
-                            List<Item> items = api.prices( ( (App)getApplicationContext()).getAuthToken()).execute().body();
+                            App apl = (App) getApplicationContext();
+                            List<Item> items = api.prices( apl.getPreferences(App.KEY_AUTH_TOKEN)).execute().body();
                             return items;
 
                         } catch (IOException e) {
@@ -278,7 +285,8 @@ private static AuthRes authRes;
                             for (Integer itemId : idItemsToDelete)
                             {
                                 HashMap mp = new HashMap();
-                                mp.put("userToken", ((App) getApplicationContext()).getAuthToken().toString());
+                                App apl = (App) getApplicationContext();
+                                mp.put("userToken", apl.getPreferences(App.KEY_AUTH_TOKEN).toString());
                                 mp.put("priceId", itemId);
                                 AuthRes res = (AuthRes) api.delete(mp).execute().body();
                             }

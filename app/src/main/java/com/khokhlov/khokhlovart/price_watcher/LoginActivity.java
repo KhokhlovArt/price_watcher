@@ -1,14 +1,17 @@
 package com.khokhlov.khokhlovart.price_watcher;
 
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TableRow;
 import android.widget.Toast;
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private TableRow rowWithExit;
     private TableRow rowWithNotificationOpt;
     private Switch notificationSwitch;
+    private RelativeLayout activityLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         rowWithExit            = (TableRow) findViewById(R.id.row_with_exit_btn);
         rowWithNotificationOpt = (TableRow) findViewById(R.id.row_with_notification_opt);
 
-        notificationSwitch = (Switch)  findViewById(R.id.switch_notifications);
+        notificationSwitch = (Switch)         findViewById(R.id.switch_notifications);
+        activityLogin      = (RelativeLayout) findViewById(R.id.activity_login);
 
         btnEnter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 App apl = (App) getApplication();
-                apl.deleteAuthToken();
+                apl.deletePreferences(apl.KEY_AUTH_TOKEN);
                 apl.deletePreferences(apl.KEY_AUTH_USER_EMAIL);
                 finish();
             }
@@ -133,6 +138,11 @@ public class LoginActivity extends AppCompatActivity {
         //startService(new Intent(this, MyGcmListenerService.class).putExtra("is_need_notification", b));
     }
 
+    public RelativeLayout getActivityLogin()
+    {
+        return this.activityLogin;
+    }
+
     /********************************************************************************************************************
      ********************************  Loader-ы  ************************************************************************
      ********************************************************************************************************************/
@@ -153,10 +163,13 @@ public class LoginActivity extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+//!!!!!!!!!!!! Пока висят гугловские сервисы
                             if (token == null)
                             {
                                 return null;
                             }
+//token = "ebani_google_visit!";
+
                             HashMap mp = new HashMap();
                             mp.put("email",    etLogin.getText().toString());
                             mp.put("password", etPass.getText().toString());
@@ -164,8 +177,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             App apl = (App) getApplication();
                             AuthRes res = (AuthRes) (apl).getApi().auth(mp).execute().body();
-                            apl.setPreferences(apl.KEY_AUTH_USER_EMAIL, etLogin.getText().toString());
-                            apl.setPreferences(apl.KEY_AUTH_USER_GCM_Token, token.toString());
+                            apl.setPreferences(App.KEY_AUTH_USER_EMAIL, etLogin.getText().toString());
+                            apl.setPreferences(App.KEY_AUTH_USER_GCM_Token, token.toString());
                             return res;
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -179,13 +192,13 @@ public class LoginActivity extends AppCompatActivity {
             public void onLoadFinished(Loader<AuthRes> loader, AuthRes data) {
                 App apl = (App) getApplication();
                 if (data != null) {
-                    apl.setAuthToken(data.token);
+                    apl.setPreferences(App.KEY_AUTH_TOKEN, data.token);
                     finish();
                 }else {
-                    apl.deletePreferences(apl.KEY_AUTH_USER_EMAIL);
-                    apl.deletePreferences(apl.KEY_AUTH_USER_GCM_Token);
+                    apl.deletePreferences(App.KEY_AUTH_USER_EMAIL);
+                    apl.deletePreferences(App.KEY_AUTH_USER_GCM_Token);
                     etPass.setText("");
-                    Toast.makeText(getApplicationContext(), "Invalid credentials!", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getActivityLogin(), R.string.add_res_default_err, Snackbar.LENGTH_LONG).show();
                 }
             }
 
@@ -226,7 +239,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (data != null) {
                     if (data.status.equals("OK")) {
-                        Toast.makeText(getBaseContext(), R.string.sign_tmp_text , Toast.LENGTH_LONG).show();
+                       // Toast.makeText(getBaseContext(), R.string.sign_tmp_text , Toast.LENGTH_LONG).show();
+                        Snackbar.make(getActivityLogin(), R.string.sign_tmp_text, Snackbar.LENGTH_LONG).show();
 //                        DialogFragment dialog = new DialogFragment();
 //                        dialog.show(getSupportFragmentManager(), "MyDialogFragmentTag");
                     }
@@ -235,17 +249,20 @@ public class LoginActivity extends AppCompatActivity {
                         switch (data.code) {
                             case 1: {
                                 //1 - Такой пользователь уже зарегистрирован
-                                Toast.makeText(getBaseContext(), R.string.signup_err_1 , Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getBaseContext(), R.string.signup_err_1 , Toast.LENGTH_SHORT).show();
+                                Snackbar.make(getActivityLogin(), R.string.signup_err_1, Snackbar.LENGTH_LONG).show();
                                 break;
                             }
                             default: {
-                                Toast.makeText(getBaseContext(), R.string.signup_err_default, Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getBaseContext(), R.string.signup_err_default, Toast.LENGTH_SHORT).show();
+                                Snackbar.make(getActivityLogin(), R.string.signup_err_default, Snackbar.LENGTH_LONG).show();
                                 break;
                             }
                         }
                     }
                 }else {
-                    Toast.makeText(getBaseContext(), R.string.signup_err_default, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getBaseContext(), R.string.signup_err_default, Toast.LENGTH_SHORT).show();
+                    Snackbar.make(getActivityLogin(), R.string.signup_err_default, Snackbar.LENGTH_LONG).show();
                 }
             }
 

@@ -28,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class App extends Application {
     private IApi api;
     private static final String PREFERENCES_SESSION     = "session";
-    private static final String KEY_AUTH_TOKEN          = "userToken";
+    public  static final String KEY_AUTH_TOKEN          = "userToken";
     public  static final String KEY_AUTH_USER_EMAIL     = "userEmail";
     public  static final String KEY_AUTH_USER_GCM_Token = "userGCMToken";
     public  static final String OPTIONS_NOTIFICATION    = "notification";
@@ -125,20 +125,8 @@ public class App extends Application {
         return getSharedPreferences(PREFERENCES_SESSION, MODE_PRIVATE).getString(preferences, "");
     }
 
-    public void setAuthToken(String authToken) {
-        getSharedPreferences(PREFERENCES_SESSION, MODE_PRIVATE).edit().putString(KEY_AUTH_TOKEN, authToken).apply();
-    }
-
-    public void deleteAuthToken() {
-        getSharedPreferences(PREFERENCES_SESSION, MODE_PRIVATE).edit().remove(KEY_AUTH_TOKEN).commit();
-    }
-
-    public String getAuthToken() {
-        return getSharedPreferences(PREFERENCES_SESSION, MODE_PRIVATE).getString(KEY_AUTH_TOKEN, "");
-    }
-
     public boolean isLoggedIn() {
-        return !TextUtils.isEmpty(getAuthToken());
+        return !TextUtils.isEmpty(getPreferences(KEY_AUTH_TOKEN));
     }
 
 //    private class AuthInterceptor implements Interceptor {

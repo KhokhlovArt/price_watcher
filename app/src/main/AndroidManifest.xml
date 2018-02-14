@@ -67,7 +67,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.khokhlov.khokhlovart.price_watcher.LoginActivity"
-                  android:theme="@style/AppTheme.Toolbar">
+                  android:theme="@style/AppTheme.Toolbar"
+                  android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name="com.khokhlov.khokhlovart.price_watcher.ItemInfo.itemInfoActivity"

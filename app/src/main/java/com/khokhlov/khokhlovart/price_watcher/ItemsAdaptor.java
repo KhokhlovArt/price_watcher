@@ -18,9 +18,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Dom on 25.11.2017.
- */
 
 public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHolder> {
     private Activity baseActivity;
@@ -142,14 +139,14 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
     {
         boolean isNeedLight = false;
         App apl = (App) baseActivity.getApplication();
-        String lightItemsInStr = apl.getPreferences(apl.IS_CHANGE_ITEM);
+        String lightItemsInStr = apl.getPreferences(App.IS_CHANGE_ITEM);
         if  (lightItemsInStr != null) {
             String[] lightId = lightItemsInStr.split(",");
 
             for (int i = 0; i < lightId.length; i++) {
                 if (lightId[i].equals(Integer.toString(itemId))) {
                     isNeedLight = true;
-                    apl.setPreferences(apl.IS_CHANGE_ITEM, lightItemsInStr.replace("," + Integer.toString(itemId), ""));
+                    apl.setPreferences(App.IS_CHANGE_ITEM, lightItemsInStr.replace("," + Integer.toString(itemId), ""));
                     break;
                 }
             }

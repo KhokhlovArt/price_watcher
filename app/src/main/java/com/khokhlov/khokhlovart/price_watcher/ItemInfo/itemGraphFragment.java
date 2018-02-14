@@ -120,7 +120,8 @@ public class itemGraphFragment extends Fragment {
 
                     public List<PriceHistoryItem> loadInBackground() {
                         try {
-                            List<PriceHistoryItem> items = api.getPriceHistory(( (App)getActivity().getApplicationContext()).getAuthToken(), item.id).execute().body();
+                            App apl = (App)getActivity().getApplicationContext();
+                            List<PriceHistoryItem> items = api.getPriceHistory(apl.getPreferences(apl.KEY_AUTH_TOKEN), item.id).execute().body();
                             return items;
                         } catch (IOException e) {
                             e.printStackTrace();

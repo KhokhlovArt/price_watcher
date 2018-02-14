@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
@@ -86,7 +87,7 @@ public class AddActivity extends AppCompatActivity {
                         try {
                             App apl = (App) getApplication();
                             HashMap mp = new HashMap();
-                            mp.put("userToken", ((App) getApplicationContext()).getAuthToken().toString());
+                            mp.put("userToken", ((App) getApplicationContext()).getPreferences(apl.KEY_AUTH_TOKEN).toString());
                             mp.put("link", link);
                             AddResult res = (AddResult) (apl).getApi().add_link(mp).execute().body();
                             return res;
@@ -138,6 +139,7 @@ public class AddActivity extends AppCompatActivity {
                 }
                 else
                 {
+                    //Snackbar.make(etLink, R.string.add_res_default_err, Snackbar.LENGTH_LONG).show();
                     Toast.makeText(getApplication(), R.string.add_res_default_err, Toast.LENGTH_SHORT).show();
                 }
             }
