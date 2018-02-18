@@ -3,6 +3,7 @@ package com.khokhlov.khokhlovart.price_watcher;
 import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -75,7 +76,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 holder.isHave.setText(      mdl.itemList.get(position).inStock ? MainActivity.getRes().getString(R.string.in_stock) :  MainActivity.getRes().getString(R.string.not_in_stock) );
                 holder.cost.setText(        PWService.formatPrice(mdl.itemList.get(position).price));
                 if (holder.itemView.isActivated()) {
-                    holder.itemCard.setBackgroundColor(MainActivity.getRes().getColor(R.color.rowToDelete));
+                    holder.itemCard.setBackgroundColor(ContextCompat.getColor(baseActivity.getBaseContext(), R.color.rowToDelete));
                     holder.btn_del.setVisibility(View.VISIBLE);
                 } else {
                     //holder.itemCard.setBackground(ResourcesCompat.getDrawable(MainActivity.getRes(), R.drawable.back_repeat, null));
@@ -84,11 +85,11 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 }
 
                 boolean itemInStock = mdl.itemList.get(position).inStock;
-                holder.shop.setTextColor(MainActivity.getRes().getColor(        itemInStock ? R.color.colorPrimary : R.color.itemGone));
-                holder.description.setTextColor(MainActivity.getRes().getColor( itemInStock ? R.color.black        : R.color.itemGone));
-                holder.date.setTextColor(MainActivity.getRes().getColor(        itemInStock ? R.color.colorPrimary : R.color.itemGone));
-                holder.isHave.setTextColor(MainActivity.getRes().getColor(      itemInStock ? R.color.colorPrimary : R.color.itemGone));
-                holder.cost.setTextColor(MainActivity.getRes().getColor(        itemInStock ? R.color.colorAccent  : R.color.itemGone));
+                holder.shop.setTextColor(ContextCompat.getColor(baseActivity.getBaseContext(),        itemInStock ? R.color.colorPrimary : R.color.itemGone));
+                holder.description.setTextColor(ContextCompat.getColor(baseActivity.getBaseContext(), itemInStock ? R.color.black        : R.color.itemGone));
+                holder.date.setTextColor(ContextCompat.getColor(baseActivity.getBaseContext(),        itemInStock ? R.color.colorPrimary : R.color.itemGone));
+                holder.isHave.setTextColor(ContextCompat.getColor(baseActivity.getBaseContext(),      itemInStock ? R.color.colorPrimary : R.color.itemGone));
+                holder.cost.setTextColor(ContextCompat.getColor(baseActivity.getBaseContext(),        itemInStock ? R.color.colorAccent  : R.color.itemGone));
 
                 holder.img_light.setVisibility(isNeedLight ? View.VISIBLE : View.GONE );
                 break;
@@ -212,7 +213,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         {
             v.setText(text);
             v.setTypeface(null, Typeface.BOLD);
-            v.setTextColor(MainActivity.getRes().getColor(R.color.black));
+            v.setTextColor(ContextCompat.getColor(baseActivity.getBaseContext(), R.color.black));
         }
 
     }

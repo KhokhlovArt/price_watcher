@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.khokhlov.khokhlovart.price_watcher.Results.AuthRes;
 import com.khokhlov.khokhlovart.price_watcher.Results.SignupRes;
 
@@ -101,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             etLogin.setText(apl.getPreferences(apl.KEY_AUTH_USER_EMAIL).toString());
             etPass.setEnabled(false);
             etPass.setText("********");
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         }else{
             btnEnter.setVisibility(View.VISIBLE);
             btnSignup.setVisibility(View.VISIBLE);
@@ -128,6 +131,8 @@ public class LoginActivity extends AppCompatActivity {
                 setNotificationOptions(b);
             }
         });
+
+//Log.e("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
     }
 
     private void setNotificationOptions(boolean b)

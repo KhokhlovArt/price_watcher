@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +16,7 @@ import com.khokhlov.khokhlovart.price_watcher.PWService;
 import com.khokhlov.khokhlovart.price_watcher.R;
 import com.khokhlov.khokhlovart.price_watcher.Results.Item;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
-
-/**
- * Created by Dom on 03.12.2017.
- */
 
 public class itemInfoFragment extends Fragment {
     private Item item;
@@ -60,7 +55,7 @@ public class itemInfoFragment extends Fragment {
         isHave_lbl_val.setText(item.inStock ? R.string.yes : R.string.no);
         price_lbl_val.setText(PWService.formatPrice(item.price));
 
-        isHave_lbl_val.setTextColor(item.inStock ? MainActivity.getRes().getColor(R.color.colorAccent) : MainActivity.getRes().getColor(R.color.rowToDelete));
+        isHave_lbl_val.setTextColor(item.inStock ? ContextCompat.getColor(getContext(), R.color.colorAccent) : ContextCompat.getColor(getContext(), R.color.rowToDelete));
 
         discription_lbl_val.setOnClickListener(new View.OnClickListener() {
             @Override
