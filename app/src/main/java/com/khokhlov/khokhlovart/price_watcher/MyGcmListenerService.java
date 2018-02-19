@@ -13,12 +13,16 @@ import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Map;
 
 /**
  * Created by Dom on 02.12.2017.
  */
 
-public class MyGcmListenerService extends GcmListenerService {
+public class MyGcmListenerService extends FirebaseMessagingService {
     public static int notifivation_count = 0;
     public static final int MAX_NOTIFICATION = 100;
 
@@ -41,19 +45,23 @@ public class MyGcmListenerService extends GcmListenerService {
         alarmService.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + 1000, restartServicePI);
     }
 
+
+    //public void onMessageReceived(String from, Bundle data) {
     @Override
-    public void onMessageReceived(String from, Bundle data) {
+    public void onMessageReceived(RemoteMessage message){
+        String from = message.getFrom();
+        Map data = message.getData();
 
         if (from.equals(MainActivity.SENDER_ID)) {
-            String message = data.getString("message");
-            String title   = data.getString("title");
+            String mess = data.get("message").toString();
+            String title   = data.get("title").toString();
 
             App apl = (App) getApplication();
             String notificationOptions = apl.getPreferences(apl.OPTIONS_NOTIFICATION);
             if (notificationOptions.equals("true")) {
 
-                sendNotification(title, message);
-                String id = data.getString("priceId"); // Сохраняем в пямяти какие элементы надо будет подсветить
+                sendNotification(title, mess);
+                String id = data.get("priceId").toString(); // Сохраняем в пямяти какие элементы надо будет подсветить
                 if (id != null) {
                     String lightItems = apl.getPreferences(apl.IS_CHANGE_ITEM);
                     apl.setPreferences(apl.IS_CHANGE_ITEM, lightItems + "," + id.toString());

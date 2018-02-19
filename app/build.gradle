@@ -9,8 +9,8 @@ android {
         applicationId "com.khokhlov.khokhlovart.price_watcher"
         minSdkVersion 21
         targetSdkVersion 25
-        versionCode 23
-        versionName "1.23"
+        versionCode 24
+        versionName "1.24"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,6 +31,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.google.android.gms:play-services-auth:11.0.0'
+    compile "com.google.firebase:firebase-messaging:9.0.0"
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'

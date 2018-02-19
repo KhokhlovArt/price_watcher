@@ -131,8 +131,6 @@ public class LoginActivity extends AppCompatActivity {
                 setNotificationOptions(b);
             }
         });
-
-//Log.e("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
     }
 
     private void setNotificationOptions(boolean b)
@@ -161,13 +159,14 @@ public class LoginActivity extends AppCompatActivity {
                     public AuthRes loadInBackground() {
                         try {
 
-                            InstanceID instanceID = InstanceID.getInstance(getContext());
+                            //InstanceID instanceID = InstanceID.getInstance(getContext());
                             String token = null;
-                            try {
+                            token = FirebaseInstanceId.getInstance().getToken();
+                            /*try {
                                 token = instanceID.getToken(MainActivity.SENDER_ID,  GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
                             } catch (IOException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
 //!!!!!!!!!!!! Пока висят гугловские сервисы
 //token = "ebani_google_visit!";
                             if (token == null)
