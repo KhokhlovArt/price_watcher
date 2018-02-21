@@ -9,6 +9,55 @@
     android:fitsSystemWindows="true"
     android:background="@drawable/back_repeat"
     tools:context="com.khokhlov.khokhlovart.price_watcher.MainActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center"
+        android:id="@+id/load_img"
+        >
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_anchorGravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_loading"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:padding="15dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/lbl_check_internet"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_cloud_off_black_24dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/check_Internet"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:padding="15dp"
+        />
+    </LinearLayout>
+
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

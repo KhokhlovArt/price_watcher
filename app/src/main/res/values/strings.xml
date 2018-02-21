@@ -49,4 +49,6 @@
     <string name="not_in_stock">not in stock</string>
     <string name="in_stock">in stock</string>
     <string name="notification_head_group">new changes</string>
+    <string name="check_Internet">Check your Internet connection</string>
+    <string name="data_loading">Loading...</string>
 </resources>

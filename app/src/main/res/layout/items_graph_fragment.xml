@@ -4,6 +4,30 @@
     android:layout_height="match_parent"
     android:background="@color/mainColor_1"
     android:id="@+id/graph_layout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/lbl_check_internet"
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_cloud_off_black_24dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/check_Internet"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:padding="15dp"
+            />
+    </LinearLayout>
     <com.jjoe64.graphview.GraphView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

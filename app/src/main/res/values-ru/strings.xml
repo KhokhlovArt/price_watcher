@@ -49,4 +49,6 @@
     <string name="not_in_stock">нет в наличии</string>
     <string name="in_stock">в наличии</string>
     <string name="notification_head_group">новых изменений(я)</string>
+    <string name="check_Internet">Проверте подключение к интернету</string>
+    <string name="data_loading">Загружается...</string>
 </resources>

@@ -109,6 +109,16 @@ public class itemGraphFragment extends Fragment {
         });
 
     }
+    private void setVisibleInMainGIThred(final int id, final int visible)
+    {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                View tmp = (View) getActivity().findViewById(id);
+                tmp.setVisibility(visible);
+            }
+        });
+    }
 
     private void loadPriceHistory() {
         getActivity().getSupportLoaderManager().restartLoader(MainActivity.LOADER_PRICE_HISTORY, null, new LoaderManager.LoaderCallbacks<List<PriceHistoryItem>>() {
@@ -122,8 +132,12 @@ public class itemGraphFragment extends Fragment {
                         try {
                             App apl = (App)getActivity().getApplicationContext();
                             List<PriceHistoryItem> items = api.getPriceHistory(apl.getPreferences(apl.KEY_AUTH_TOKEN), item.id).execute().body();
+                            setVisibleInMainGIThred(R.id.lbl_check_internet, View.GONE);
+                            setVisibleInMainGIThred(R.id.graph, View.VISIBLE);
                             return items;
                         } catch (IOException e) {
+                            setVisibleInMainGIThred(R.id.lbl_check_internet, View.VISIBLE);
+                            setVisibleInMainGIThred(R.id.graph, View.GONE);
                             e.printStackTrace();
                             return null;
                         }

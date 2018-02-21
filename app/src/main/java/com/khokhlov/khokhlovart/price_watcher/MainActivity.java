@@ -2,6 +2,7 @@ package com.khokhlov.khokhlovart.price_watcher;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.SystemClock;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -15,10 +16,12 @@ import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.khokhlov.khokhlovart.price_watcher.Api.IApi;
 import com.khokhlov.khokhlovart.price_watcher.ItemInfo.itemInfoActivity;
@@ -231,6 +234,16 @@ public class MainActivity extends AppCompatActivity {
         if (actionMode != null) { actionMode.finish(); }
     }
 
+    private void setVisibleInMainGIThred(final int id, final int visible)
+    {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                View tmp = (View) findViewById(id);
+                tmp.setVisibility(visible);
+            }
+        });
+    }
 
     /********************************************************************************************************************
      ********************************  Loader-ы  ************************************************************************
@@ -245,11 +258,18 @@ public class MainActivity extends AppCompatActivity {
 
                     public List<Item> loadInBackground() {
                         try {
+                            setVisibleInMainGIThred(R.id.items_recycler_view, View.GONE);
+                            setVisibleInMainGIThred(R.id.load_img, View.VISIBLE);
                             App apl = (App) getApplicationContext();
                             List<Item> items = api.prices( apl.getPreferences(App.KEY_AUTH_TOKEN)).execute().body();
+                            setVisibleInMainGIThred(R.id.load_img, View.GONE);
+                            setVisibleInMainGIThred(R.id.lbl_check_internet, View.GONE);
+                            setVisibleInMainGIThred(R.id.items_recycler_view, View.VISIBLE);
                             return items;
-
                         } catch (IOException e) {
+                            setVisibleInMainGIThred(R.id.load_img, View.GONE);
+                            setVisibleInMainGIThred(R.id.lbl_check_internet, View.VISIBLE);
+                            setVisibleInMainGIThred(R.id.items_recycler_view, View.GONE);
                             e.printStackTrace();
                             return null;
                         }
