@@ -9,6 +9,8 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -27,6 +29,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
     private ItemsAdapterListener clickListener = null;
     public final int HEAD_HOLDER_TYPE = 0;
     public final int BODY_HOLDER_TYPE = 1;
+
 
     public ItemsAdaptor(Activity a, ItemListModels mdl)
     {
@@ -96,7 +99,12 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
             default:
                 break;
         }
+
+//holder.itemView.startAnimation(holder.anim);
+//Animation anim = null;
+//anim = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.alpha);
     }
+
 
     @Override
     public int getItemCount() {
@@ -138,6 +146,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         notifyItemRemoved(pos);
         return item;
     }
+
     private boolean isNeedLight(int itemId)
     {
         boolean isNeedLight = false;
@@ -168,6 +177,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
         public TextView cost;
         public ImageButton img_light;
         public ImageButton btn_del;
+
         public ItemViewHolder(View itemView) {
             super(itemView);
             itemCard    = (RelativeLayout) itemView.findViewById(R.id.item_card);
@@ -197,6 +207,8 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 }
             });
             itemView.setActivated(selected);
+
+
         }
 
         public void setHeader()
