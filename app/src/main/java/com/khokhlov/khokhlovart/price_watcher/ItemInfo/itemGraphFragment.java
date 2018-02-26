@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,18 +66,21 @@ public class itemGraphFragment extends Fragment {
         graph.getGridLabelRenderer().setVerticalLabelsSecondScaleColor(R.color.black);
         graph.getGridLabelRenderer().setHorizontalLabelsColor(R.color.black);
         graph.getGridLabelRenderer().setHorizontalAxisTitleColor(R.color.black);
+        graph.getGridLabelRenderer().setNumVerticalLabels(4);
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-
-        graph.getGridLabelRenderer().setHumanRounding(false);
-        //graph.getViewport().setScalable(true);
-        //graph.getViewport().setScrollable(true);
-        //graph.getViewport().setScalableY(true);
-        //graph.getViewport().setScrollableY(true);
+        //graph.getViewport().setYAxisBoundsManual(true);
+        //graph.getGridLabelRenderer().setHumanRounding(false);
+        graph.getViewport().setScalable(true);
+        graph.getViewport().setScrollable(true);
+        graph.getViewport().setScalableY(true);
+        graph.getViewport().setScrollableY(true);
 
 
         DataPoint[] tmp  = new DataPoint[priceHistory.size()];
         int i = 0;
+        double max = 0;
+        double min = 1000000;
         for (PriceHistoryItem historyItem : priceHistory)
         {
             /*double val = historyItem.priceValue == null ? 0 : historyItem.priceValue;
@@ -90,11 +94,16 @@ public class itemGraphFragment extends Fragment {
             i++;*/
             double val = historyItem.priceValue == null ? 0 : historyItem.priceValue;
             tmp[i] = new DataPoint(i, val);
+            max = max < val ? val : max;
+            min = min > val ? val : min;
             i++;
         }
+        graph.getViewport().setMinY(min);
+        graph.getViewport().setMaxY(max);
+        graph.getViewport().setMaxX(priceHistory.size());
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(tmp);
         graph.addSeries(series);
-        series.setColor( MainActivity.getRes().getColor(R.color.colorAccent));
+        series.setColor(ContextCompat.getColor(getContext(),R.color.colorAccent));
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(10);
         series.setThickness(8);

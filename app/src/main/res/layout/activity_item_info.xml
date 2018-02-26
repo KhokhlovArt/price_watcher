@@ -7,7 +7,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainColor_2"
-    tools:context="com.khokhlov.khokhlovart.price_watcher.ItemInfo.itemInfoActivity">
+    tools:context="com.khokhlov.khokhlovart.price_watcher.ItemInfo.itemInfoActivity"
+    >
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,6 +23,7 @@
             >
         </android.support.v7.widget.Toolbar>
         <android.support.design.widget.TabLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
@@ -36,10 +38,35 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
     </android.support.v4.view.ViewPager>
+
+    <FrameLayout
+        android:id="@+id/fragment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="55dp">
+
+    </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:itemBackground="@color/colorPrimary"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="@color/colorAccent"
+        app:itemTextColor="@color/colorAccent"
+        android:layout_gravity="bottom"
+        app:menu="@menu/menu_info_graph"
+        >
+    </android.support.design.widget.BottomNavigationView>
 
 </android.support.design.widget.CoordinatorLayout>

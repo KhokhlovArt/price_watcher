@@ -8,6 +8,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(getString(R.string.app_name));
-        collapsingToolbar.setExpandedTitleColor(getResources().getColor(R.color.black));
+        collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(getBaseContext(),R.color.black));
 
         Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(mActionBarToolbar);
@@ -258,12 +259,12 @@ public class MainActivity extends AppCompatActivity {
 
                     public List<Item> loadInBackground() {
                         try {
+                            setVisibleInMainGIThred(R.id.lbl_check_internet, View.GONE);
                             setVisibleInMainGIThred(R.id.items_recycler_view, View.GONE);
                             setVisibleInMainGIThred(R.id.load_img, View.VISIBLE);
                             App apl = (App) getApplicationContext();
                             List<Item> items = api.prices( apl.getPreferences(App.KEY_AUTH_TOKEN)).execute().body();
                             setVisibleInMainGIThred(R.id.load_img, View.GONE);
-                            setVisibleInMainGIThred(R.id.lbl_check_internet, View.GONE);
                             setVisibleInMainGIThred(R.id.items_recycler_view, View.VISIBLE);
                             return items;
                         } catch (IOException e) {
