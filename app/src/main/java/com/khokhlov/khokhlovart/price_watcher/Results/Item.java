@@ -27,8 +27,11 @@ public class Item implements Serializable {
     public boolean inStock;
     public double price;
 
+    public boolean isFinde;
+
     public Item(String shop, String description, String link, boolean inStock, double price) {
         //this.shop        = shop;
+        this.isFinde      = false;
         this.description  = description;
         this.link         = link;
         this.inStock      = inStock;

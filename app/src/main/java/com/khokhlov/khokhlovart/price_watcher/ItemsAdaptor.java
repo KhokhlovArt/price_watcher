@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,11 +39,47 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
     }
 
     public void addItem(Item i){
+        mdl.fullItemList.add(i);
         mdl.itemList.add(i);
     }
 
+
+
+    public void filterItems(String query) {
+        if ((query != null) && (!query.equals("")))
+        {
+            mdl.itemList = new ArrayList<>();
+            for (Item item : mdl.fullItemList) {
+                if (item.description.toLowerCase().contains(query.toLowerCase())){
+                    mdl.itemList.add(item);
+                    item.isFinde = true;
+                }
+                else
+                {
+                    item.isFinde = false;
+                }
+            }
+        }
+        else
+        {
+            mdl.itemList = mdl.fullItemList;
+            for (Item item : mdl.itemList) {item.isFinde = false;}
+        }
+        notifyDataSetChanged();
+    }
+
     public void setItems(List<Item> listItms){
-        mdl.itemList = listItms;
+
+        mdl.itemList.clear();
+        mdl.fullItemList.clear();
+
+        mdl.itemList = new ArrayList<>();
+        mdl.fullItemList = new ArrayList<>();
+        for (Item item : listItms) {
+            mdl.itemList.add(item);
+            mdl.fullItemList.add(item);
+        }
+
         //this.itemList.add(0, new Item("-", "-", "-", false, 0)); // Костыль что бы вставить шапку таблицы
         notifyDataSetChanged();
     }
@@ -73,6 +110,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                 boolean isNeedLight = isNeedLight(item.id);
                 holder.bind(item, position, mdl.selectedItems.get(position, false), clickListener);
 
+
                 holder.shop.setText(        mdl.itemList.get(position).shop.domain);
                 holder.description.setText( (mdl.itemList.get(position).shop.parserState) ? mdl.itemList.get(position).description : MainActivity.getRes().getString(R.string.shop_is_added));
                 holder.date.setText(        (mdl.itemList.get(position).createDate == null) ? "" :  new SimpleDateFormat("dd-MM-yyyy HH:mm").format(mdl.itemList.get(position).createDate));
@@ -82,8 +120,9 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
                     holder.itemCard.setBackgroundColor(ContextCompat.getColor(baseActivity.getBaseContext(), R.color.rowToDelete));
                     holder.btn_del.setVisibility(View.VISIBLE);
                 } else {
+                    
                     //holder.itemCard.setBackground(ResourcesCompat.getDrawable(MainActivity.getRes(), R.drawable.back_repeat, null));
-                    holder.itemCard.setBackgroundColor(MainActivity.getRes().getColor(R.color.mainColor_1));
+                    holder.itemCard.setBackgroundColor(MainActivity.getRes().getColor(item.isFinde ? R.color.findeColor : R.color.mainColor_1));
                     holder.btn_del.setVisibility(View.GONE);
                 }
 
@@ -143,6 +182,7 @@ public class ItemsAdaptor extends RecyclerView.Adapter<ItemsAdaptor.ItemViewHold
 
     Item remove(int pos) {
         final Item item = mdl.itemList.remove(pos);
+        mdl.fullItemList.remove(pos);
         notifyItemRemoved(pos);
         return item;
     }

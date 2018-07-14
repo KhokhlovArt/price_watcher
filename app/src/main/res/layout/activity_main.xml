@@ -97,7 +97,6 @@
                 android:textColor="@color/black"
                 android:id="@+id/textView"
                 />
-
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"

@@ -1,5 +1,7 @@
 package com.khokhlov.khokhlovart.price_watcher;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.SystemClock;
@@ -10,18 +12,22 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.khokhlov.khokhlovart.price_watcher.Api.IApi;
@@ -43,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private IApi api;
     private ActionMode actionMode;
     private List<Integer> idItemsToDelete = new ArrayList<>();
-
+    private SearchView mSearchView;
     public static final int LOADER_ITEMS         = 0;
     public static final int LOADER_AUTH          = 1;
     public static final int LOADER_DELETE        = 2;
@@ -110,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (mSearchView != null) {
+                    mSearchView.setQuery("", false);
+                    mSearchView.clearFocus();
+                }
+
                 loadItems();
                 refreshLayout.setRefreshing(false);
             }
@@ -154,6 +165,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main_activity, menu);
+
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        mSearchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        //mSearchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.menu_search));
+        if (mSearchView != null ) {
+
+            EditText searchEditText = (EditText) mSearchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+            searchEditText.setTextColor(getResources().getColor(R.color.colorAccent));
+            searchEditText.setHintTextColor(getResources().getColor(R.color.colorAccentHint));
+
+            mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            mSearchView.setIconifiedByDefault(false);
+
+            SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+                public boolean onQueryTextChange(String newText) {
+                    adaptor.filterItems(newText);
+                    return true;
+                }
+
+                public boolean onQueryTextSubmit(String query) {
+                    adaptor.filterItems(query);
+                    return true;
+                }
+            };
+
+            mSearchView.setOnQueryTextListener(queryTextListener);
+        }
+
         return true;
     }
 
@@ -169,6 +209,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_add: {
                 Intent intent = new Intent(getBaseContext(), AddActivity.class);
                 startActivity(intent);
+                return true;
+                }
+            case R.id.menu_search:{
+
                 return true;
                 }
             default:

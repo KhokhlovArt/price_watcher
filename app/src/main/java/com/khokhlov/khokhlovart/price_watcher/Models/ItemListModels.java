@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemListModels {
-    public List<Item> itemList = new ArrayList<>();
+    public ArrayList<Item> itemList = new ArrayList<>();
+    public ArrayList<Item> fullItemList = new ArrayList<>();
     public SparseBooleanArray selectedItems = new SparseBooleanArray();
 }
